@@ -1,0 +1,40 @@
+export interface ICanvasChecklistItem {
+  id: string;
+  text: string;
+  checked: boolean;
+}
+
+export interface ICanvasChecklistState {
+  jdItems: ICanvasChecklistItem[];
+  resumeItems: ICanvasChecklistItem[];
+}
+
+export interface IPitchStrategyState {
+  introChecked: boolean;
+  aboutChecked: boolean;
+  customChecked: boolean;
+  introText: string;
+  aboutText: string;
+  customTitle: string;
+  customText: string;
+}
+
+export type PitchStrategyTextField = 'introText' | 'aboutText' | 'customTitle' | 'customText';
+export type PitchStrategyCheckField = 'introChecked' | 'aboutChecked' | 'customChecked';
+
+export interface ICanvasQaItem {
+  id: string;
+  q: string;
+  motive: string;
+  hint: string;
+  a: string;
+  showHint: boolean;
+  showAnswer: boolean;
+  checked: boolean;
+}
+
+export interface ICanvasState {
+  checklist: ICanvasChecklistState;
+  pitchStrategy: IPitchStrategyState;
+  qaItems: ICanvasQaItem[];
+}
