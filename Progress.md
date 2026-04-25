@@ -1,14 +1,14 @@
 # EduDash Migration Progress Report
 
 > **Last Updated:** 2026-04-25
-> **Status:** 🟢 UI Migration Complete (Phases 1-4)
-> **Current Focus:** Ready for State & Logic Integration (Agent Gamma)
+> **Status:** Phase 5 In Progress (Foundation Complete)
+> **Current Focus:** Dashboard wiring, canvas persistence, and chart integration
 
 This document tracks the end-to-end migration of the EduDash platform from its original monolithic Vanilla HTML/JS structure to a robust, enterprise-grade Angular 17+ and .NET 8 Clean Architecture stack.
 
 ---
 
-## 🟡 Agent Alpha (Backend Specialist)
+## Agent Alpha (Backend Specialist)
 
 **Objective:** Build a Clean Architecture .NET 8 Web API serving sub-50ms responses via `AsNoTracking()` Entity Framework queries.
 
@@ -20,13 +20,13 @@ This document tracks the end-to-end migration of the EduDash platform from its o
 - **Import Utility Pipeline:** Built and tested a robust Excel import utility (with SHA-256 deduplication and idempotent workers) to rapidly ingest questions for the new interface.
 
 ### Directories Touched/Created (Backend):
-- `/Application/DTOs/` — Data Transfer Objects for frontend consumption
-- `/Infrastructure/Data/` — Entity Framework configurations and fast read models
-- `/API/Controllers/` — RESTful routing endpoints
+- `/Application/DTOs/` - Data Transfer Objects for frontend consumption
+- `/Infrastructure/Data/` - Entity Framework configurations and fast read models
+- `/API/Controllers/` - RESTful routing endpoints
 
 ---
 
-## 🔵 Agent Beta (Angular UI Specialist)
+## Agent Beta (Angular UI Specialist)
 
 **Objective:** Break down the monolithic `interview-prep-dashboard.html` and 9 other standalone vanilla files into a strict Angular 17 Standalone Component structure powered by Tailwind CSS.
 
@@ -96,12 +96,33 @@ This document tracks the end-to-end migration of the EduDash platform from its o
 
 ---
 
-## 🟣 Next Steps: Agent Gamma (State & Logic Integrator)
+## Agent Gamma (State & Logic Integrator)
 
-With the HTML, CSS, and component structure strictly ported and compiling successfully (0 errors), the application is ready for Phase 5.
+With the HTML, CSS, and component structure strictly ported and compiling successfully, Phase 5 state and logic integration is now underway.
 
-**Agent Gamma's Queue:**
-1. Connect `DashboardComponent` to real backend telemetry via `ApiService`.
-2. Map `InterviewCanvasComponent` interactive state to `LocalStorageService`.
-3. Implement `Chart.js` rendering logic inside the `RadarChartComponent` placeholder.
-4. Establish an RxJS or Angular Signals store for global state management.
+### Things Done:
+
+#### Phase 5.1: Foundation Alignment
+- **Task:** Align the Angular frontend with the backend contract that actually exists today instead of the earlier placeholder `/api/dashboard` assumption.
+- **Completed:**
+  - Reworked dashboard DTOs in `src/app/core/models/dashboard.model.ts` to match the current backend `GET /api/dashboard/tech-stack` response shape.
+  - Updated `ApiService` to expose `getTechStack()` for the real backend route.
+  - Rebuilt `DashboardStore` with Angular Signals for `techStack`, `loading`, and `error`, with computed selectors for `devHexagon`, `skills`, and `primaryMetrics`.
+  - Avoided introducing phantom metrics, heatmap, and radar API contracts before those endpoints exist.
+
+#### Phase 5.2: Canvas State Foundation
+- **Task:** Prepare the Interview Canvas for real persistence while preserving Agent Beta's UI structure.
+- **Completed:**
+  - Reshaped `src/app/core/models/canvas.model.ts` to match the current checklist, pitch strategy, and Q&A accordion state already used in the UI.
+  - Extended `CanvasStore` with Angular Signals and LocalStorage-backed rehydration using the `eduDash_canvasState` key.
+  - Added explicit store actions for JD/resume checklist toggles, pitch checkbox state, editable pitch text fields, Q&A expand/collapse state, Q&A completion toggles, reset behavior, and add-Q&A behavior.
+  - Kept canvas persistence browser-local until a real `/api/canvas` contract is introduced.
+
+#### Verification
+- **Build Validation:** Confirmed the Angular app still builds successfully after the Phase 5 foundation changes.
+- **Notes:** The build passes with an existing frontend bundle budget warning still present.
+
+### Current Remaining Queue:
+1. Connect `DashboardComponent` to the new `DashboardStore` and map live backend data into the existing stat, heatmap, and radar UI shell as endpoints become available.
+2. Wire `InterviewCanvasComponent` and its child components to `CanvasStore` so interactions persist instantly to LocalStorage.
+3. Implement `Chart.js` rendering inside `RadarChartComponent` using Angular lifecycle-safe initialization and cleanup.

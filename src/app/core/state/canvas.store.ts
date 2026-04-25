@@ -16,6 +16,7 @@ export class CanvasStore {
   private localStorage = inject(LocalStorageService);
 
   private readonly defaultState: ICanvasState = {
+    title: 'Role Title / Company Name',
     checklist: {
       jdItems: [
         {
@@ -68,6 +69,7 @@ export class CanvasStore {
   private state = signal<ICanvasState>(this.getInitialState());
 
   readonly canvasState = computed(() => this.state());
+  readonly title = computed(() => this.state().title);
   readonly checklist = computed(() => this.state().checklist);
   readonly jdItems = computed(() => this.state().checklist.jdItems);
   readonly resumeItems = computed(() => this.state().checklist.resumeItems);
@@ -120,6 +122,13 @@ export class CanvasStore {
     }));
   }
 
+  updateTitle(title: string): void {
+    this.state.update((state) => ({
+      ...state,
+      title
+    }));
+  }
+
   toggleQaHint(id: string): void {
     this.updateQaItem(id, (item) => ({ ...item, showHint: !item.showHint }));
   }
@@ -169,6 +178,7 @@ export class CanvasStore {
     }
 
     return {
+      title: savedState.title ?? this.defaultState.title,
       checklist: {
         jdItems: savedState.checklist?.jdItems ?? this.defaultState.checklist.jdItems,
         resumeItems: savedState.checklist?.resumeItems ?? this.defaultState.checklist.resumeItems

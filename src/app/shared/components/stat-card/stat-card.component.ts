@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, TrendingUp, TrendingDown, LucideIconData } from 'lucide-angular';
+import { LucideAngularModule } from 'lucide-angular';
 import { IStatCard } from '../../../core/models/stat-card.model';
 
 @Component({

@@ -4,12 +4,18 @@
         <p class="text-[#5F6368] text-sm">Here is your progress for today. Keep up the momentum!</p>
     </header>
 
+    @if (errorMsg()) {
+        <div class="rounded-xl border border-[#f6c7c4] bg-[#fce8e6] px-4 py-3 text-sm text-[#c5221f]">
+            Unable to load live dashboard data right now. Showing safe fallback visuals until the backend is available.
+        </div>
+    }
+
     <!-- Top Stat Row -->
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <app-stat-card [data]="questionsStat"></app-stat-card>
-        <app-streak-counter></app-streak-counter>
-        <app-stat-card [data]="topicsStat"></app-stat-card>
-        <app-stat-card [data]="accuracyStat"></app-stat-card>
+        <app-stat-card [data]="questionsStat()"></app-stat-card>
+        <app-streak-counter [currentStreak]="currentStreak()" [bestStreak]="bestStreak()"></app-streak-counter>
+        <app-stat-card [data]="topicsStat()"></app-stat-card>
+        <app-stat-card [data]="accuracyStat()"></app-stat-card>
     </section>
 
     <!-- Main Content Grid -->
@@ -25,29 +31,29 @@
                     <div class="flex gap-2">
                         <div class="flex bg-white border border-[#E0E0E0] p-0.5 rounded-lg">
                             <button (click)="changeHeatmapLayout('vertical')" 
-                                [class]="heatmapConfig.layout === 'vertical' ? 'text-[#202124] bg-[#F8F9FA] shadow-sm' : 'text-[#5F6368] hover:text-[#202124]'"
+                                [class]="heatmapConfig().layout === 'vertical' ? 'text-[#202124] bg-[#F8F9FA] shadow-sm' : 'text-[#5F6368] hover:text-[#202124]'"
                                 class="px-3 py-1 rounded-md text-xs font-medium transition-all">90-Day</button>
                             <button (click)="changeHeatmapLayout('horizontal')"
-                                [class]="heatmapConfig.layout === 'horizontal' ? 'text-[#202124] bg-[#F8F9FA] shadow-sm' : 'text-[#5F6368] hover:text-[#202124]'"
+                                [class]="heatmapConfig().layout === 'horizontal' ? 'text-[#202124] bg-[#F8F9FA] shadow-sm' : 'text-[#5F6368] hover:text-[#202124]'"
                                 class="px-3 py-1 rounded-md text-xs font-medium transition-all">Yearly</button>
                         </div>
                         <div class="flex bg-white border border-[#E0E0E0] p-0.5 rounded-lg">
                             <button (click)="changeHeatmapShape('square')"
-                                [class]="heatmapConfig.shape === 'square' ? 'text-[#202124] bg-[#F8F9FA] shadow-sm' : 'text-[#5F6368] hover:text-[#202124]'"
+                                [class]="heatmapConfig().shape === 'square' ? 'text-[#202124] bg-[#F8F9FA] shadow-sm' : 'text-[#5F6368] hover:text-[#202124]'"
                                 class="px-3 py-1 rounded-md text-xs font-medium transition-all">Squares</button>
                             <button (click)="changeHeatmapShape('circle')"
-                                [class]="heatmapConfig.shape === 'circle' ? 'text-[#202124] bg-[#F8F9FA] shadow-sm' : 'text-[#5F6368] hover:text-[#202124]'"
+                                [class]="heatmapConfig().shape === 'circle' ? 'text-[#202124] bg-[#F8F9FA] shadow-sm' : 'text-[#5F6368] hover:text-[#202124]'"
                                 class="px-3 py-1 rounded-md text-xs font-medium transition-all">Dots</button>
                         </div>
                     </div>
                 </div>
-                <app-activity-heatmap [config]="heatmapConfig"></app-activity-heatmap>
+                <app-activity-heatmap [config]="heatmapConfig()"></app-activity-heatmap>
             </section>
         </div>
 
         <!-- Right Sidebar: Radar & Skill Tree snippet -->
         <div class="lg:col-span-1 space-y-8">
-            <app-radar-chart></app-radar-chart>
+            <app-radar-chart [skills]="skills()" [targetLabel]="targetLabel()"></app-radar-chart>
             <!-- Skill tree snippet can go here eventually -->
         </div>
     </div>

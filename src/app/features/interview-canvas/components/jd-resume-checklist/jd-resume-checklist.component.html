@@ -7,12 +7,12 @@
             </h3>
         </div>
         <div class="space-y-2">
-            @for (item of jdItems; track item.id; let i = $index) {
+            @for (item of jdItems(); track item.id) {
                 <div class="flex items-start gap-3 p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-[#E0E0E0]">
                     <div class="pt-0.5 shrink-0">
-                        <app-premium-checkbox [checked]="item.checked" (checkedChange)="toggleJd(i)"></app-premium-checkbox>
+                        <app-premium-checkbox [checked]="item.checked" (checkedChange)="toggleJd(item.id)"></app-premium-checkbox>
                     </div>
-                    <p class="text-sm text-[#202124] leading-relaxed select-none cursor-pointer" (click)="toggleJd(i)" [class.line-through]="item.checked" [class.text-[#5F6368]]="item.checked">
+                    <p class="text-sm text-[#202124] leading-relaxed select-none cursor-pointer" (click)="toggleJd(item.id)" [class.line-through]="item.checked" [class.text-[#5F6368]]="item.checked">
                         {{ item.text }}
                     </p>
                 </div>
@@ -28,12 +28,12 @@
             </h3>
         </div>
         <div class="space-y-2">
-            @for (item of resumeItems; track item.id; let i = $index) {
+            @for (item of resumeItems(); track item.id) {
                 <div class="flex items-start gap-3 p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-[#d2e3fc]">
                     <div class="pt-0.5 shrink-0">
-                        <app-premium-checkbox [checked]="item.checked" (checkedChange)="toggleResume(i)"></app-premium-checkbox>
+                        <app-premium-checkbox [checked]="item.checked" (checkedChange)="toggleResume(item.id)"></app-premium-checkbox>
                     </div>
-                    <p class="text-sm text-[#202124] leading-relaxed select-none cursor-pointer" (click)="toggleResume(i)" [class.line-through]="item.checked" [class.text-[#5F6368]]="item.checked">
+                    <p class="text-sm text-[#202124] leading-relaxed select-none cursor-pointer" (click)="toggleResume(item.id)" [class.line-through]="item.checked" [class.text-[#5F6368]]="item.checked">
                         {{ item.text }}
                     </p>
                 </div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Activity, Flame, ChevronRight, TrendingUp } from 'lucide-angular';
 import { IHeatmapConfig, IHeatmapCell } from '../../../core/models/heatmap.model';
@@ -10,7 +10,7 @@ import { IHeatmapConfig, IHeatmapCell } from '../../../core/models/heatmap.model
   templateUrl: './activity-heatmap.component.html',
   styleUrl: './activity-heatmap.component.scss'
 })
-export class ActivityHeatmapComponent implements OnInit {
+export class ActivityHeatmapComponent implements OnInit, OnChanges {
   @Input({ required: true }) config!: IHeatmapConfig;
   
   cells: IHeatmapCell[] = [];
@@ -20,7 +20,15 @@ export class ActivityHeatmapComponent implements OnInit {
     this.generateHeatmapData();
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['config']) {
+      this.generateHeatmapData();
+    }
+  }
+
   private generateHeatmapData() {
+    this.cells = [];
+
     // Basic stub logic for visual layout. Real logic will use this.config.data.
     const today = new Date();
     const days = 140; // Approx 20 weeks * 7 days
@@ -45,10 +53,10 @@ export class ActivityHeatmapComponent implements OnInit {
   }
 
   private getColor(count: number): string {
-    if (count === 0) return 'bg-[#F8F9FA] border-[#E0E0E0]';
-    if (count < 3) return 'bg-[#1A73E8]/20 border-[#1A73E8]/10';
-    if (count < 6) return 'bg-[#1A73E8]/50 border-[#1A73E8]/20';
-    if (count < 10) return 'bg-[#1A73E8]/80 border-[#1A73E8]/30';
-    return 'bg-[#1A73E8] border-[#1A73E8]/50';
+    if (count === 0) return 'bg-[#EEF1F5] border-transparent';
+    if (count < 3) return 'bg-[#1A73E8]/25 border-[#1A73E8]/10';
+    if (count < 6) return 'bg-[#1A73E8]/55 border-[#1A73E8]/20';
+    if (count < 10) return 'bg-[#1A73E8]/85 border-[#1A73E8]/30';
+    return 'bg-[#0B57D0] border-[#0B57D0]/50';
   }
 }

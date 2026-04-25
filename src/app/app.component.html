@@ -1,25 +1,31 @@
 <!-- TOP NAVIGATION -->
 <nav class="bg-white border-b border-[#E0E0E0] sticky top-0 z-50 h-16 px-6 flex items-center justify-between">
     <div class="flex items-center gap-8">
-        <div class="flex items-center gap-2">
+        <a routerLink="/dashboard" class="flex items-center gap-2 rounded-md focus-ring">
             <div class="w-8 h-8 bg-[#1A73E8] rounded-md text-white flex items-center justify-center font-bold text-lg shadow-sm">
                 E
             </div>
             <span class="font-semibold text-lg tracking-tight">EduDash</span>
-        </div>
+        </a>
         <!-- Global Router Links -->
-        <div class="hidden md:flex items-center gap-6 text-sm font-medium text-[#5F6368]">
+        <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-[#5F6368]">
             <a routerLink="/dashboard" routerLinkActive="text-[#1A73E8] !border-[#1A73E8]" [routerLinkActiveOptions]="{exact: true}"
                 class="hover:text-[#202124] border-b-2 py-5 transition-colors border-transparent">Dashboard</a>
-            <a routerLink="/interactive-lessons" routerLinkActive="text-[#1A73E8] !border-[#1A73E8]"
+            <a routerLink="/interview-canvas" routerLinkActive="text-[#1A73E8] !border-[#1A73E8]"
                 class="hover:text-[#202124] transition-colors py-5 border-b-2 border-transparent">Interview Canvas</a>
             <a routerLink="/skill-tree" routerLinkActive="text-[#1A73E8] !border-[#1A73E8]"
                 class="hover:text-[#202124] transition-colors py-5 border-b-2 border-transparent">Skill Tree</a>
+            <a routerLink="/question-bank" routerLinkActive="text-[#1A73E8] !border-[#1A73E8]"
+                class="hover:text-[#202124] transition-colors py-5 border-b-2 border-transparent">Question Bank</a>
+            <a routerLink="/learning-lab" routerLinkActive="text-[#1A73E8] !border-[#1A73E8]"
+                class="hover:text-[#202124] transition-colors py-5 border-b-2 border-transparent">Learning Lab</a>
+            <a routerLink="/quiz" routerLinkActive="text-[#1A73E8] !border-[#1A73E8]"
+                class="hover:text-[#202124] transition-colors py-5 border-b-2 border-transparent">Quiz</a>
         </div>
     </div>
     <div class="flex items-center gap-4">
         <!-- Global Nav Search -->
-        <div class="relative hidden md:block">
+        <div class="relative hidden md:block" *ngIf="!isLandingRoute">
             <lucide-icon name="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-[#5F6368]" [size]="16"></lucide-icon>
             <input type="text" placeholder="Search current view..."
                 class="pl-9 pr-4 py-2 bg-[#F8F9FA] border border-[#E0E0E0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1A73E8] focus:border-transparent transition-all w-64" />
@@ -36,6 +42,7 @@
 
 <!-- FLOATING SEARCH WIDGET (Global) -->
 <div class="fixed right-0 top-1/4 z-[60] flex items-center bg-white/95 backdrop-blur-md rounded-l-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-[#E0E0E0] border-r-0 transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
+    *ngIf="!isLandingRoute"
     [class.translate-x-[calc(100%-3rem)]]="!isSearchOpen"
     [class.hover:translate-x-[calc(100%-3.5rem)]]="!isSearchOpen"
     [class.translate-x-0]="isSearchOpen">

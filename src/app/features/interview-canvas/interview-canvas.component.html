@@ -6,7 +6,7 @@
                 <span class="text-[#5F6368] text-sm font-medium">Auto-saved to local storage</span>
             </div>
             <h1 class="text-3xl font-bold tracking-tight text-[#202124]" contenteditable="true"
-                (blur)="onTitleChange($event)">{{ title }}</h1>
+                (blur)="onTitleChange($event)">{{ title() }}</h1>
         </div>
         <button (click)="resetData()"
             class="mt-4 md:mt-0 btn bg-[#fce8e6] text-[#c5221f] hover:bg-[#fad2cf] border-transparent transition-colors">
@@ -38,10 +38,10 @@
                 <span class="text-xs text-[#5F6368] font-medium hidden md:block">Click text to edit directly</span>
             </div>
             <div class="flex justify-end mb-1 mt-2">
-                <span class="text-xs font-bold text-[#34A853]">0/3</span>
+                <span class="text-xs font-bold text-[#34A853]">{{ pitchCompletedCount() }}/3</span>
             </div>
             <div class="w-full bg-[#E0E0E0] rounded-full h-1.5">
-                <div class="bg-[#34A853] h-1.5 rounded-full progress-fill" style="width: 0%"></div>
+                <div class="bg-[#34A853] h-1.5 rounded-full progress-fill" [style.width]="pitchProgressWidth()"></div>
             </div>
         </div>
         <app-pitch-strategy></app-pitch-strategy>
@@ -67,10 +67,10 @@
                 </div>
             </div>
             <div class="flex justify-end mb-1 mt-2">
-                <span class="text-xs font-bold text-[#34A853]">0/0</span>
+                <span class="text-xs font-bold text-[#34A853]">{{ qaCompletedCount() }}/{{ qaTotalCount() }}</span>
             </div>
             <div class="w-full bg-[#E0E0E0] rounded-full h-1.5">
-                <div class="bg-[#34A853] h-1.5 rounded-full progress-fill" style="width: 0%"></div>
+                <div class="bg-[#34A853] h-1.5 rounded-full progress-fill" [style.width]="qaProgressWidth()"></div>
             </div>
         </div>
         <app-qa-accordion></app-qa-accordion>

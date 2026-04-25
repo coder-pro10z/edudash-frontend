@@ -3,8 +3,8 @@
         <lucide-icon name="flame" [size]="20" [strokeWidth]="2.5"></lucide-icon>
     </div>
     <div>
-        <h3 class="text-3xl font-semibold text-[#202124]">12 Days</h3>
+        <h3 class="text-3xl font-semibold text-[#202124]">{{ currentStreak }} Days</h3>
         <p class="text-sm font-medium text-[#5F6368] mt-1">Current Streak</p>
     </div>
-    <div class="text-xs text-[#5F6368] mt-auto pt-2 border-t border-[#E0E0E0]">Personal best: 21 days</div>
+    <div class="text-xs text-[#5F6368] mt-auto pt-2 border-t border-[#E0E0E0]">Personal best: {{ bestStreak }} days</div>
 </div>

@@ -1,19 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, ChevronDown, ChevronUp, CheckCircle, Lightbulb, Play, Volume2 } from 'lucide-angular';
 import { PremiumCheckboxComponent } from '../../../../shared/components/premium-checkbox/premium-checkbox.component';
 import { BadgeComponent } from '../../../../shared/components/badge/badge.component';
-
-interface QAItem {
-  id: string;
-  q: string;
-  motive: string;
-  hint: string;
-  a: string;
-  showHint: boolean;
-  showAnswer: boolean;
-  checked: boolean;
-}
+import { CanvasStore } from '../../../../core/state/canvas.store';
+import { ICanvasQaItem } from '../../../../core/models/canvas.model';
 
 @Component({
   selector: 'app-qa-accordion',
@@ -23,24 +14,19 @@ interface QAItem {
   styleUrl: './qa-accordion.component.scss'
 })
 export class QaAccordionComponent {
-  qaList: QAItem[] = [
-    {
-      id: 'q1',
-      q: 'Explain the different dependency injection lifetimes in .NET Core and when you would use each.',
-      motive: 'Tests fundamental ASP.NET Core architectural knowledge and memory management.',
-      hint: 'Define lifecycles: Transient (every time), Scoped (per request), Singleton (app lifetime).',
-      a: 'For global caching, utilize AddSingleton. For per-request database context, AddScoped is mandatory. Never inject a Scoped service into a Singleton.',
-      showHint: false,
-      showAnswer: false,
-      checked: false
-    }
-  ];
+  private canvasStore = inject(CanvasStore);
 
-  toggleHint(item: QAItem) {
-    item.showHint = !item.showHint;
+  readonly qaList = computed(() => this.canvasStore.qaItems());
+
+  toggleHint(item: ICanvasQaItem) {
+    this.canvasStore.toggleQaHint(item.id);
   }
 
-  toggleAnswer(item: QAItem) {
-    item.showAnswer = !item.showAnswer;
+  toggleAnswer(item: ICanvasQaItem) {
+    this.canvasStore.toggleQaAnswer(item.id);
+  }
+
+  setChecked(item: ICanvasQaItem, checked: boolean) {
+    this.canvasStore.setQaChecked(item.id, checked);
   }
 }

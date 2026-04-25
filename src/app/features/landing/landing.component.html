@@ -1,0 +1,201 @@
+<main class="landing-page bg-[#F8F9FA] text-[#202124]">
+    <section class="border-b border-[#E0E0E0] bg-white">
+        <div class="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:px-8 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:py-20">
+            <div class="max-w-3xl space-y-7">
+                <span class="badge badge-primary">Interview preparation workspace</span>
+                <div class="space-y-5">
+                    <h1 class="text-4xl font-semibold leading-tight tracking-tight text-[#202124] md:text-6xl">
+                        Build interview readiness with a dashboard that keeps every next step clear.
+                    </h1>
+                    <p class="max-w-2xl text-lg leading-8 text-[#5F6368]">
+                        EduDash combines skill mapping, resume alignment, high-probability Q&A, quizzes, and progress tracking into one practical preparation system.
+                    </p>
+                </div>
+                <div class="flex flex-col gap-3 sm:flex-row">
+                    <a routerLink="/dashboard" class="btn btn-primary px-5 py-3">
+                        <lucide-icon name="layout-dashboard" [size]="18"></lucide-icon>
+                        Open Dashboard
+                    </a>
+                    <a href="#features" class="btn btn-secondary px-5 py-3">
+                        <lucide-icon name="sparkles" [size]="18"></lucide-icon>
+                        View Features
+                    </a>
+                </div>
+                <div class="grid max-w-xl grid-cols-3 gap-4 pt-4">
+                    <div>
+                        <strong class="block text-2xl font-semibold text-[#202124]">90</strong>
+                        <span class="text-sm text-[#5F6368]">day activity view</span>
+                    </div>
+                    <div>
+                        <strong class="block text-2xl font-semibold text-[#202124]">3</strong>
+                        <span class="text-sm text-[#5F6368]">prep workflows</span>
+                    </div>
+                    <div>
+                        <strong class="block text-2xl font-semibold text-[#202124]">1</strong>
+                        <span class="text-sm text-[#5F6368]">focused workspace</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-preview rounded-2xl border border-[#E0E0E0] bg-[#F8F9FA] p-3 shadow-[0_8px_16px_rgba(0,0,0,0.10)]">
+                <div class="rounded-xl border border-[#E0E0E0] bg-white p-4">
+                    <div class="mb-5 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-semibold uppercase tracking-normal text-[#5F6368]">Today</p>
+                            <h2 class="mt-1 text-xl font-semibold text-[#202124]">Interview Readiness</h2>
+                        </div>
+                        <span class="badge badge-success">On track</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="rounded-xl border border-[#E0E0E0] bg-white p-4 shadow-sm">
+                            <lucide-icon name="flame" class="text-[#EA4335]" [size]="20"></lucide-icon>
+                            <strong class="mt-3 block text-2xl font-semibold">12</strong>
+                            <span class="text-sm text-[#5F6368]">day streak</span>
+                        </div>
+                        <div class="rounded-xl border border-[#E0E0E0] bg-white p-4 shadow-sm">
+                            <lucide-icon name="circle-check" class="text-[#34A853]" [size]="20"></lucide-icon>
+                            <strong class="mt-3 block text-2xl font-semibold">38</strong>
+                            <span class="text-sm text-[#5F6368]">questions ready</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 rounded-xl border border-[#E0E0E0] bg-white p-4">
+                        <div class="mb-3 flex items-center justify-between">
+                            <span class="text-sm font-semibold">Skill readiness</span>
+                            <span class="text-xs font-semibold text-[#1A73E8]">72%</span>
+                        </div>
+                        <div class="h-2 rounded-full bg-[#E0E0E0]">
+                            <div class="h-2 w-[72%] rounded-full bg-[#1A73E8]"></div>
+                        </div>
+                        <div class="mt-4 grid grid-cols-7 gap-1">
+                            @for (level of [1,2,3,0,2,4,1,3,2,0,4,3,1,2,4,4,2,1,3,0,2]; track $index) {
+                                <span class="h-5 rounded-sm border border-[#E0E0E0]" [class]="level === 0 ? 'bg-[#F8F9FA]' : level === 1 ? 'bg-[#e8f0fe]' : level === 2 ? 'bg-[#c6dafc]' : level === 3 ? 'bg-[#7baaf7]' : 'bg-[#1A73E8]'"></span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="mx-auto max-w-7xl px-6 py-16 md:px-8">
+        <div class="mb-8 max-w-2xl">
+            <span class="badge badge-primary">Features</span>
+            <h2 class="mt-4 text-3xl font-semibold text-[#202124]">Everything needed to prepare with structure.</h2>
+        </div>
+        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            @for (feature of features; track feature.title) {
+                <article class="edudash-card">
+                    <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-[#e8f0fe] text-[#1A73E8]">
+                        <lucide-icon [name]="feature.icon" [size]="20"></lucide-icon>
+                    </div>
+                    <h3 class="text-lg font-semibold text-[#202124]">{{ feature.title }}</h3>
+                    <p class="mt-2 text-sm leading-6 text-[#5F6368]">{{ feature.text }}</p>
+                </article>
+            }
+        </div>
+    </section>
+
+    <section class="border-y border-[#E0E0E0] bg-white">
+        <div class="mx-auto max-w-7xl px-6 py-16 md:px-8">
+            <div class="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+                <div class="max-w-2xl">
+                    <span class="badge badge-neutral">Workflow</span>
+                    <h2 class="mt-4 text-3xl font-semibold text-[#202124]">Interview preparation that moves from role to readiness.</h2>
+                </div>
+                <a routerLink="/interview-canvas" class="btn btn-secondary">
+                    <lucide-icon name="arrow-right" [size]="16"></lucide-icon>
+                    Open Canvas
+                </a>
+            </div>
+            <div class="grid gap-5 md:grid-cols-3">
+                @for (step of workflow; track step.label) {
+                    <article class="rounded-xl border border-[#E0E0E0] bg-[#F8F9FA] p-5">
+                        <span class="text-sm font-semibold text-[#1A73E8]">{{ step.label }}</span>
+                        <h3 class="mt-4 text-lg font-semibold text-[#202124]">{{ step.title }}</h3>
+                        <p class="mt-2 text-sm leading-6 text-[#5F6368]">{{ step.text }}</p>
+                    </article>
+                }
+            </div>
+        </div>
+    </section>
+
+    <section class="mx-auto grid max-w-7xl gap-6 px-6 py-16 md:px-8 lg:grid-cols-2">
+        <article class="edudash-card">
+            <div class="flex items-center gap-3">
+                <div class="rounded-lg bg-[#e8f0fe] p-2 text-[#1A73E8]">
+                    <lucide-icon name="network" [size]="20"></lucide-icon>
+                </div>
+                <h2 class="text-xl font-semibold">Skill Tree Section</h2>
+            </div>
+            <p class="mt-3 text-sm leading-6">Organize target skills into connected topics, track what is unlocked, and see which concepts deserve practice next.</p>
+            <div class="mt-6 grid grid-cols-3 gap-3 text-center text-sm font-medium">
+                <span class="rounded-lg border border-[#E0E0E0] bg-[#F8F9FA] p-3">Frontend</span>
+                <span class="rounded-lg border border-[#E0E0E0] bg-[#F8F9FA] p-3">Backend</span>
+                <span class="rounded-lg border border-[#E0E0E0] bg-[#F8F9FA] p-3">System Design</span>
+            </div>
+        </article>
+
+        <article class="edudash-card">
+            <div class="flex items-center gap-3">
+                <div class="rounded-lg bg-[#e6f4ea] p-2 text-[#1b5d2b]">
+                    <lucide-icon name="activity" [size]="20"></lucide-icon>
+                </div>
+                <h2 class="text-xl font-semibold">Progress Tracking Section</h2>
+            </div>
+            <p class="mt-3 text-sm leading-6">Use streaks, heatmaps, topic counts, and readiness metrics to make preparation measurable without making it noisy.</p>
+            <div class="mt-6 space-y-3">
+                <div>
+                    <div class="mb-1 flex justify-between text-xs font-semibold"><span>Questions</span><span>82%</span></div>
+                    <div class="h-2 rounded-full bg-[#E0E0E0]"><div class="h-2 w-[82%] rounded-full bg-[#34A853]"></div></div>
+                </div>
+                <div>
+                    <div class="mb-1 flex justify-between text-xs font-semibold"><span>Concepts</span><span>64%</span></div>
+                    <div class="h-2 rounded-full bg-[#E0E0E0]"><div class="h-2 w-[64%] rounded-full bg-[#1A73E8]"></div></div>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <section class="border-y border-[#E0E0E0] bg-white">
+        <div class="mx-auto grid max-w-7xl gap-6 px-6 py-16 md:px-8 lg:grid-cols-3">
+            <article class="edudash-card lg:col-span-1">
+                <span class="badge badge-primary">Questions</span>
+                <h2 class="mt-4 text-2xl font-semibold">Question Section</h2>
+                <p class="mt-3 text-sm leading-6">Prepare answers for high-probability interview prompts, import new Q&A sets, and track completion as you refine each response.</p>
+            </article>
+            <article class="edudash-card lg:col-span-1">
+                <span class="badge badge-warning">Quiz</span>
+                <h2 class="mt-4 text-2xl font-semibold">Quiz Section</h2>
+                <p class="mt-3 text-sm leading-6">Test concepts with focused quizzes before moving back into lessons or deeper practice.</p>
+                <div class="mt-5 flex flex-wrap gap-2">
+                    @for (topic of quizTopics; track topic) {
+                        <span class="badge badge-neutral">{{ topic }}</span>
+                    }
+                </div>
+            </article>
+            <article class="edudash-card lg:col-span-1">
+                <span class="badge badge-success">Interactive</span>
+                <h2 class="mt-4 text-2xl font-semibold">Interactive Learning Section</h2>
+                <p class="mt-3 text-sm leading-6">Use diagrams, SQL tables, graph visuals, and concept widgets to make abstract interview topics easier to practice.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-6 py-16 md:px-8">
+        <div class="rounded-2xl border border-[#E0E0E0] bg-white p-8 text-center shadow-sm md:p-12">
+            <span class="badge badge-primary">Ready when you are</span>
+            <h2 class="mx-auto mt-5 max-w-3xl text-3xl font-semibold text-[#202124]">Turn scattered interview prep into a clear daily system.</h2>
+            <p class="mx-auto mt-4 max-w-2xl text-base text-[#5F6368]">Open EduDash, choose the next visible gap, practice it, and keep your momentum easy to understand.</p>
+            <div class="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+                <a routerLink="/dashboard" class="btn btn-primary px-5 py-3">
+                    <lucide-icon name="rocket" [size]="18"></lucide-icon>
+                    Start Preparing
+                </a>
+                <a routerLink="/skill-tree" class="btn btn-secondary px-5 py-3">
+                    <lucide-icon name="network" [size]="18"></lucide-icon>
+                    View Skill Tree
+                </a>
+            </div>
+        </div>
+    </section>
+</main>

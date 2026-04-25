@@ -10,5 +10,6 @@ import { LucideAngularModule, Flame } from 'lucide-angular';
   styleUrl: './streak-counter.component.scss'
 })
 export class StreakCounterComponent {
-  // Can add Inputs later if needed
+  @Input() currentStreak = 12;
+  @Input() bestStreak = 21;
 }

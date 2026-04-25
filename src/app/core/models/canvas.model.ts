@@ -34,6 +34,7 @@ export interface ICanvasQaItem {
 }
 
 export interface ICanvasState {
+  title: string;
   checklist: ICanvasChecklistState;
   pitchStrategy: IPitchStrategyState;
   qaItems: ICanvasQaItem[];
