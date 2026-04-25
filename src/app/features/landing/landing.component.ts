@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 
@@ -22,7 +22,26 @@ interface WorkflowStep {
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss'
 })
-export class LandingComponent {
+export class LandingComponent implements OnInit {
+  @ViewChildren('reveal') revealElements!: QueryList<ElementRef>;
+
+  ngOnInit() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    // Small delay to ensure ViewChildren are populated
+    setTimeout(() => {
+      this.revealElements.forEach(el => observer.observe(el.nativeElement));
+    }, 100);
+  }
+
+  stats = { days: 90, workflows: 3, workspace: 1 };
+
   readonly features: LandingFeature[] = [
     {
       icon: 'layout-dashboard',

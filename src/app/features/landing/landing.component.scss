@@ -1,22 +1,87 @@
-.landing-page {
-    min-height: calc(100vh - 4rem);
+// 1. 3D & Perspective Settings
+.perspective-container {
+    perspective: 1200px;
 }
 
-.product-preview {
-    position: relative;
-}
-
-.product-preview::before {
-    content: "";
-    position: absolute;
-    inset: 16px;
-    border-radius: 18px;
-    border: 1px solid rgba(26, 115, 232, 0.12);
-    pointer-events: none;
-}
-
-@media (max-width: 640px) {
-    .landing-page h1 {
-        font-size: 2.5rem;
+.floating-card {
+    transform: rotateY(-15deg) rotateX(10deg);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    
+    &:hover {
+        transform: rotateY(0deg) rotateX(0deg) translateY(-10px);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.12);
     }
+}
+
+// 2. Scroll-Triggered Animation Base
+.reveal-fade-in, .reveal-slide-up, .reveal-slide-in {
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-slide-up { transform: translateY(40px); }
+.reveal-slide-in { transform: translateX(-40px); }
+
+.is-visible {
+    opacity: 1 !important;
+    transform: translate(0) !important;
+}
+
+// 3. Data Visualisation Animations
+.progress-fill {
+    width: 0;
+    transition: width 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+    .is-visible & {
+        width: var(--target-width);
+    }
+}
+
+.draw-path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw 2s forwards ease-in-out;
+    animation-delay: 0.5s;
+}
+
+@keyframes draw {
+    to { stroke-dashoffset: 0; }
+}
+
+// 4. Micro-interactions
+.btn-primary {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    
+    &:after {
+        content: '';
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 120%; height: 120%;
+        background: rgba(255,255,255,0.1);
+        transform: translate(-50%, -50%) scale(0);
+        border-radius: 100%;
+        transition: transform 0.5s ease;
+    }
+
+    &:hover:after {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.stagger-fade {
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.animate-pulse-subtle {
+    animation: pulse-subtle 2s infinite;
+}
+
+@keyframes pulse-subtle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(0.98); }
 }

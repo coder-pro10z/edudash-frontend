@@ -28,7 +28,7 @@ export class LearningLabComponent {
   readonly modules: { id: LabTab; label: string; icon: string; description: string }[] = [
     { id: 'quiz', label: 'Quiz Mode', icon: 'circle-help', description: 'Check understanding with focused concept questions.' },
     { id: 'graph', label: 'D3 Graph', icon: 'git-fork', description: 'Explore relationships and traversal patterns visually.' },
-    { id: 'venn', label: 'SQL Venn', icon: 'venn-diagram', description: 'Compare SQL join behavior with interactive sets.' },
+    { id: 'venn', label: 'SQL Venn', icon: 'focus', description: 'Compare SQL join behavior with interactive sets.' },
     { id: 'table', label: 'SQL Engine', icon: 'table-2', description: 'Practice query thinking against tabular examples.' }
   ];
 
