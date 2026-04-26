@@ -1,87 +1,181 @@
-// 1. 3D & Perspective Settings
+/* 3D Motion System */
 .perspective-container {
-    perspective: 1200px;
+    perspective: 2000px;
 }
 
-.floating-card {
-    transform: rotateY(-15deg) rotateX(10deg);
-    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-    
+.hero-3d-card {
+    transform: rotateX(15deg) rotateY(-5deg) translateY(20px);
+    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+
     &:hover {
-        transform: rotateY(0deg) rotateX(0deg) translateY(-10px);
-        box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+        transform: rotateX(0deg) rotateY(0deg) translateY(0);
     }
 }
 
-// 2. Scroll-Triggered Animation Base
-.reveal-fade-in, .reveal-slide-up, .reveal-slide-in {
+/* Scroll Animations */
+.reveal-fade-in,
+.reveal-slide-up,
+.reveal-slide-in {
     opacity: 0;
-    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal-slide-up { transform: translateY(40px); }
-.reveal-slide-in { transform: translateX(-40px); }
+.reveal-slide-up {
+    transform: translateY(40px);
+}
+
+.reveal-slide-in {
+    transform: translateX(-40px);
+}
 
 .is-visible {
     opacity: 1 !important;
-    transform: translate(0) !important;
+    transform: translate(0, 0) !important;
 }
 
-// 3. Data Visualisation Animations
-.progress-fill {
-    width: 0;
-    transition: width 1.5s cubic-bezier(0.65, 0, 0.35, 1);
-    .is-visible & {
-        width: var(--target-width);
+/* Feature Specifics */
+.blueprint-grid {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+.btn-primary-elite {
+    @apply inline-flex items-center gap-3 px-10 py-5 bg-[#1A73E8] text-white rounded-2xl font-bold text-lg shadow-[0_20px_40px_rgba(26, 115, 232, 0.3)] hover:shadow-[0_10px_20px_rgba(26, 115, 232, 0.2)] hover:-translate-y-1 transition-all active:scale-95;
+}
+
+.shadow-green {
+    filter: drop-shadow(0 0 10px #34A853);
+}
+
+.draw-path {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: draw 2s ease-out forwards;
+}
+
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0;
     }
+}
+
+.animate-ping-slow {
+    animation: ping 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-spin-slow {
+    animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Scrollbar Utility for Mobile SVG */
+.custom-scrollbar::-webkit-scrollbar {
+    height: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #E0E0E0;
+    border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #BDBDBD;
+}
+
+
+/* ELITE MOTION DESIGN SYSTEM */
+
+.perspective-container {
+    perspective: 2000px;
+}
+
+.floating-3d-card {
+    transform: rotateX(12deg) rotateY(-5deg) rotateZ(1deg);
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.floating-3d-card:hover {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1.02);
+}
+
+/* SCROLL REVEALS */
+.reveal-fade-in,
+.reveal-slide-up,
+.reveal-slide-in {
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+}
+
+.reveal-slide-up {
+    transform: translateY(60px);
+}
+
+.reveal-slide-in {
+    transform: translateX(-40px);
+}
+
+.is-visible {
+    opacity: 1 !important;
+    transform: translate(0, 0) !important;
+}
+
+/* DRAWING ANIMATIONS */
+.draw-polygon {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: drawPath 2.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
 
 .draw-path {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
-    animation: draw 2s forwards ease-in-out;
+    animation: drawPath 3s ease-out forwards;
     animation-delay: 0.5s;
 }
 
-@keyframes draw {
-    to { stroke-dashoffset: 0; }
-}
-
-// 4. Micro-interactions
-.btn-primary {
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    
-    &:after {
-        content: '';
-        position: absolute;
-        top: 50%; left: 50%;
-        width: 120%; height: 120%;
-        background: rgba(255,255,255,0.1);
-        transform: translate(-50%, -50%) scale(0);
-        border-radius: 100%;
-        transition: transform 0.5s ease;
+@keyframes drawPath {
+    to {
+        stroke-dashoffset: 0;
     }
-
-    &:hover:after {
-        transform: translate(-50%, -50%) scale(1);
-    }
-}
-
-.stagger-fade {
-    animation: fadeIn 0.5s forwards;
-}
-
-@keyframes fadeIn {
-    to { opacity: 1; }
 }
 
 .animate-pulse-subtle {
-    animation: pulse-subtle 2s infinite;
+    animation: pulseSubtle 4s ease-in-out infinite;
 }
 
-@keyframes pulse-subtle {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(0.98); }
+@keyframes pulseSubtle {
+
+    0%,
+    100% {
+        opacity: 0.05;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.08;
+        transform: scale(1.1);
+    }
+}
+
+.btn-primary {
+    background-color: #1A73E8;
+    color: white;
+    font-weight: 600;
+    border-radius: 0.75rem;
 }

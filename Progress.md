@@ -126,3 +126,8 @@ With the HTML, CSS, and component structure strictly ported and compiling succes
 1. Connect `DashboardComponent` to the new `DashboardStore` and map live backend data into the existing stat, heatmap, and radar UI shell as endpoints become available.
 2. Wire `InterviewCanvasComponent` and its child components to `CanvasStore` so interactions persist instantly to LocalStorage.
 3. Implement `Chart.js` rendering inside `RadarChartComponent` using Angular lifecycle-safe initialization and cleanup.
+
+### Error Fixes & Refinements (Phase 5)
+- **Icon Resolution:** Fixed `check-circle-2` and `check-circle` resolution errors by converting them to the correctly supported `circle-check` Lucide alias.
+- **ViewChildren Crash:** Resolved `TypeError: def.findHostDirectiveDefs is not a function` by moving IntersectionObserver logic entirely into `ngAfterViewInit` and safely checking array length before `.forEach` execution.
+- **Mobile Responsiveness:** Adjusted landing page dimensions, tile ratios (3D Hero Mockup grid converted to `md:grid-cols-12` and stacked on mobile), the Omnibar placement (`top-4` vs `top-6`), the Tactile Playground box sizes, and added a responsive `overflow-x-auto` wrapper for the Skill tree SVG to preserve dimensions on phone screens.
