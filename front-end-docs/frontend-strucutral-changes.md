@@ -1,3 +1,96 @@
+Documentation - Migration
+
+NEW(INITAL STRUCTURE)
+
+PS C:\Users\Praveen\Desktop\migrating-Old-UI> tree
+Folder PATH listing
+Volume serial number is 582C-C3B8
+C:.
+└───edudash-frontend
+    ├───.github
+    │   └───skills
+    │       └───file-change-logger
+    │           └───assets
+    ├───.vscode
+    └───src
+        ├───app
+        │   ├───core
+        │   │   ├───models
+        │   │   ├───services
+        │   │   └───state
+        │   ├───features
+        │   │   ├───dashboard
+        │   │   │   └───components
+        │   │   │       ├───continue-learning
+        │   │   │       ├───radar-chart
+        │   │   │       └───streak-counter
+        │   │   ├───interactive-lessons
+        │   │   │   └───components
+        │   │   │       ├───forum-quiz
+        │   │   │       ├───interactive-graph
+        │   │   │       ├───sql-table
+        │   │   │       └───venn-diagram
+        │   │   ├───interview-canvas
+        │   │   │   └───components
+        │   │   │       ├───jd-resume-checklist
+        │   │   │       ├───keyword-card
+        │   │   │       ├───pitch-strategy
+        │   │   │       └───qa-accordion
+        │   │   ├───landing
+        │   │   ├───learning-lab
+        │   │   ├───question-bank
+        │   │   ├───quiz
+        │   │   └───skill-tree
+        │   └───shared
+        │       └───components
+        │           ├───activity-heatmap
+        │           ├───badge
+        │           ├───code-block
+        │           ├───premium-checkbox
+        │           └───stat-card
+        └───assets
+
+
+
+        OLD(STRUCTURE)
+        
+D:\Projects\Full Stack (Angular)\Interview_PrepApp\frontend\src\app>tree
+Folder PATH listing for volume New Volume
+Volume serial number is 7A25-6323
+D:.
+├───core
+│   ├───guards
+│   ├───interceptors
+│   ├───models
+│   └───services
+├───features
+│   ├───admin
+│   │   └───admin-dashboard
+│   ├───auth
+│   │   ├───login
+│   │   └───register
+│   ├───dashboard
+│   │   ├───components
+│   │   │   └───question-table
+│   │   └───dashboard-page
+│   └───quiz
+│       ├───quiz-dashboard
+│       ├───quiz-player
+│       └───quiz-review
+├───layouts
+│   ├───admin-layout
+│   └───app-layout
+└───shared
+    └───components
+        ├───action-toggle
+        ├───filter-bar
+        ├───pagination
+        ├───progress-card
+        ├───question-badge
+        ├───sidebar
+        └───sub-category-nav
+
+
 Here is the finalized, comprehensive architecture for your new EduDash frontend. This structure successfully marries your premium light UI aesthetic with the robust functional requirements of your legacy backend, incorporating the specific component adaptations we discussed.
 
 ```text
@@ -235,4 +328,3 @@ C:.
         │           └───sub-category-nav
         ├───assets
         └───environments
-PS C:\Users\Praveen\Desktop\migrating-Old-UI> 

@@ -128,7 +128,7 @@ type AdminTab = 'dashboard' | 'questions' | 'categories' | 'import';
           </div>
 
           <!-- Recent Activity -->
-          @if (stats()!.recentActivity?.length) {
+          @if (stats()!.recentActivity.length) {
             <div class="glass-panel rounded-xl overflow-hidden">
               <div class="px-5 py-3 border-b border-white/5">
                 <h2 class="text-sm font-semibold text-white">Recent Activity</h2>
@@ -425,14 +425,14 @@ type AdminTab = 'dashboard' | 'questions' | 'categories' | 'import';
                 @if (importResult()!.failed)  { <span class="text-red-400">✗ {{ importResult()!.failed }} failed</span> }
                 @if (importResult()!.isDryRun){ <span class="text-blue-400">(Dry Run)</span> }
               </div>
-              @if (importResult()!.warnings?.length) {
+              @if (importResult()!.warnings.length) {
                 <div class="space-y-1">
                   @for (w of importResult()!.warnings; track $index) {
                     <p class="text-yellow-400/80">⚠ {{ w }}</p>
                   }
                 </div>
               }
-              @if (importResult()!.errors?.length) {
+              @if (importResult()!.errors.length) {
                 <div class="space-y-1">
                   @for (e of importResult()!.errors; track $index) {
                     <p class="text-red-400/80">✗ {{ e }}</p>
