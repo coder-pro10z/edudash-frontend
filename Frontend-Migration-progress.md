@@ -58,3 +58,15 @@
   - **Scrollbar Fix**: Restructured the flexbox wrappers with `h-full`, `min-h-0`, and `flex-shrink-0` to strictly trap scrolling inside the `<main>` element, destroying the "double scrollbar" issue and preventing the TopNav from scrolling out of view.
   - **Glassmorphism Overlay**: Added an unauthenticated login card that applies a `blur-sm pointer-events-none` state to the main router outlet content.
   - **Z-Index Layering Fix**: Elevated the mobile `<aside>` drawer to `z-[70]` with `bg-white/95 backdrop-blur-xl shadow-2xl` to ensure the sidebar aggressively overrides the `z-[50]` glassmorphism overlay on smaller screens.
+
+---
+
+## Phase 3: Question Bank Rebuild
+*Goal: Migrate robust data-fetching, filtering, pagination, and optimistic-toggle logic to the new QuestionBankComponent while strictly preserving its new card-based UI.*
+
+- [x] **Step 1:** Strip out the old dashboard logic to leave a pure stats-only view.
+- [x] **Step 2:** Scaffold the Question Bank reactive state (\`filters$\`, \`pagination$\`, \`loadQuestions$\`, \`vm$\`).
+- [x] **Step 3:** Wire up \`<app-filter-bar>\` and Antigravity-styled pagination to the Question Bank template.
+- [x] **Step 4:** Map \`QuestionDto\` data to the new Card UI layout with loading skeletons and empty states.
+- [x] **Step 5:** Port \`toggleSolved\` and \`toggleRevision\` with full optimistic updates and error rollbacks.
+- [x] **Step 6:** Migrate shared components (\`filter-bar\`, \`action-toggle\`, \`progress-card\`, \`sub-category-nav\`) to the Antigravity Premium Light design system styles.

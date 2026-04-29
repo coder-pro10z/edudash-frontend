@@ -5,7 +5,6 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { AsyncPipe, NgIf } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { map } from 'rxjs';
@@ -18,7 +17,7 @@ import { TopNavComponent } from '../components/top-nav/top-nav.component';
 @Component({
   selector: 'app-app-layout',
   standalone: true,
-  imports: [AsyncPipe, NgIf, RouterLink, RouterOutlet, SidebarComponent, TopNavComponent],
+  imports: [RouterLink, RouterOutlet, SidebarComponent, TopNavComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- Mobile drawer backdrop -->

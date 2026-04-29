@@ -42,12 +42,12 @@ export class ActionToggleComponent {
 
   get activeClasses(): string {
     if (this.icon === 'solved') {
-      return 'bg-green-500/15 text-green-400 border border-green-500/30 hover:bg-green-500/25 scale-[1.02]';
+      return 'bg-green-100 text-green-700 border border-green-200 hover:bg-green-200 scale-[1.02]';
     }
-    return 'bg-amber-500/15 text-amber-400 border border-amber-500/30 hover:bg-amber-500/25 scale-[1.02]';
+    return 'bg-amber-100 text-amber-700 border border-amber-200 hover:bg-amber-200 scale-[1.02]';
   }
 
   get inactiveClasses(): string {
-    return 'bg-dark-surface-light text-slate-500 border border-transparent hover:text-slate-300 hover:bg-dark-surface-hover';
+    return 'bg-slate-50 text-[#5F6368] border border-[#E0E0E0] hover:text-[#202124] hover:bg-slate-100';
   }
 }

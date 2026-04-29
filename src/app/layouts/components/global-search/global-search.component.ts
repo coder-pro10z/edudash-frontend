@@ -54,7 +54,7 @@ export class GlobalSearchComponent {
   // Global Keyboard Shortcut: Cmd+K or Ctrl+K
   @HostListener('window:keydown.meta.k', ['$event'])
   @HostListener('window:keydown.control.k', ['$event'])
-  handleShortcut(event: KeyboardEvent) {
+  handleShortcut(event: Event) {
     event.preventDefault();
     this.focusInput();
   }
