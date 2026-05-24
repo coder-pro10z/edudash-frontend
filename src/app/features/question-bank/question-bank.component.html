@@ -54,21 +54,37 @@
             </div>
         } @else {
             @for (question of vm.questions; track question.id) {
-                <article @listAnimation class="premium-card group">
+                <article @listAnimation class="premium-card group transition-all duration-500" 
+                         [class.opacity-40]="expandedQuestionId && expandedQuestionId !== question.id"
+                         [class.shadow-2xl]="expandedQuestionId === question.id"
+                         [class.-translate-y-1]="expandedQuestionId === question.id">
                     <!-- Top Badges -->
                     <div class="flex items-start justify-between">
-                        <app-question-badge [label]="question.categoryName" variant="Role"></app-question-badge>
-                        <app-question-badge [label]="question.difficulty" [variant]="question.difficulty"></app-question-badge>
+                        <div class="flex gap-2">
+                            <app-question-badge [label]="question.categoryName" variant="Role"></app-question-badge>
+                            <app-question-badge [label]="question.difficulty" [variant]="question.difficulty"></app-question-badge>
+                        </div>
+                        <!-- Social Proof / Gamification -->
+                        <div class="flex items-center gap-1 text-[10px] font-bold text-slate-500 uppercase tracking-wider bg-slate-50 px-2 py-1 rounded-md border border-slate-100">
+                            <lucide-icon name="trending-up" [size]="12" class="text-emerald-500"></lucide-icon>
+                            85% Solved
+                        </div>
                     </div>
 
-                    <!-- Title & Content -->
-                    <div class="mt-5 space-y-3">
-                        <h2 class="text-xl font-semibold text-[#202124] group-hover:text-[#1A73E8] transition-colors duration-300">
-                            {{ question.title || 'Untitled Question' }}
-                        </h2>
-                        <p class="text-sm leading-relaxed text-[#5F6368] line-clamp-3 group-hover:line-clamp-none transition-all">
-                            {{ question.questionText }}
-                        </p>
+                    <!-- Title & Content with Fixed Height for Alignment -->
+                    <div class="mt-5 h-[140px] overflow-hidden flex flex-col gap-3">
+                        @if (question.title) {
+                            <h2 class="text-[1.15rem] font-semibold text-[#202124] group-hover:text-[#1A73E8] transition-colors duration-300 leading-snug line-clamp-2">
+                                {{ question.title }}
+                            </h2>
+                            <p class="text-sm leading-relaxed text-[#5F6368] line-clamp-3 group-hover:line-clamp-none transition-all">
+                                {{ question.questionText }}
+                            </p>
+                        } @else {
+                            <h2 class="text-[1.15rem] font-semibold text-[#202124] group-hover:text-[#1A73E8] transition-colors duration-300 leading-snug line-clamp-5">
+                                {{ question.questionText }}
+                            </h2>
+                        }
                     </div>
 
                     <div class="mt-4">
@@ -79,7 +95,7 @@
 
                     <!-- Action Bar -->
                     <div class="mt-6 flex items-center justify-between border-t border-slate-50 pt-4">
-                        <div class="flex gap-1">
+                        <div class="flex gap-2">
                             <app-action-toggle label="Solved" icon="solved" [active]="question.isSolved" (toggled)="toggleSolved(question.id)"></app-action-toggle>
                             <app-action-toggle label="Revision" icon="bookmark" [active]="question.isRevision" (toggled)="toggleRevision(question.id)"></app-action-toggle>
                         </div>
@@ -97,10 +113,10 @@
                         <div [@expandCollapse]="expandedQuestionId === question.id ? 'expanded' : 'collapsed'" 
                              class="answer-box">
                             <div class="flex items-center gap-2 mb-3">
-                                <div class="h-2 w-2 rounded-full bg-[#1A73E8] animate-pulse"></div>
-                                <span class="text-[11px] font-bold uppercase tracking-wider text-[#1A73E8]">Official Guidance</span>
+                                <div class="h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></div>
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600">Official Guidance</span>
                             </div>
-                            <p class="text-[14px] text-[#3C4043] leading-relaxed italic whitespace-pre-line">
+                            <p class="text-[14px] text-[#3C4043] leading-[1.625] whitespace-pre-line">
                                 {{ question.answerText }}
                             </p>
                         </div>

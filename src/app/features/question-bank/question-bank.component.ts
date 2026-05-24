@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { AsyncPipe, NgClass, NgIf, SlicePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -19,12 +19,12 @@ import { QuestionBadgeComponent } from '../../shared/components/question-badge/q
   selector: 'app-question-bank',
   standalone: true,
   imports: [
-    AsyncPipe, NgClass, NgIf, LucideAngularModule,
+    AsyncPipe, NgClass, NgIf, SlicePipe, LucideAngularModule,
     ActionToggleComponent, FilterBarComponent, QuestionBadgeComponent
   ],
   animations: [
     trigger('expandCollapse', [
-      state('collapsed', style({ height: '0px', opacity: 0, marginTop: '0px', overflow: 'hidden' })),
+      state('collapsed', style({ height: '0px', opacity: 0, marginTop: '0px' })),
       state('expanded', style({ height: '*', opacity: 1, marginTop: '1.25rem' })),
       transition('collapsed <=> expanded', [
         animate('400ms cubic-bezier(0.4, 0, 0.2, 1)')

@@ -46,10 +46,22 @@ $apple-ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .answer-box {
-    background-color: rgba(248, 250, 252, 0.5);
+    position: relative;
+    background-color: rgba(239, 246, 255, 0.5);
+    backdrop-filter: blur(4px);
     border-radius: 1rem;
-    padding: 1rem;
-    border-left: 4px solid #1A73E8;
+    padding: 1.25rem;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(to bottom, #1A73E8, #6366f1);
+    }
 }
 
 .btn-apple-primary {

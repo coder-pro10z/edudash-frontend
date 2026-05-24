@@ -32,4 +32,4 @@
 
 ## Phase 4: The Student Experience (The Weightless Shell)
 - [ ] **Step 13:** Wire `dashboard-page.component` to `dashboard.store.ts`.
-- [ ] **Step 14:** Wire `question-bank.component` and `quiz-player.component`.
+- [x] **Step 14:** Wire `question-bank.component` and `quiz-player.component`.
