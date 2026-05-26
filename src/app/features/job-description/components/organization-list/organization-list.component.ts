@@ -25,7 +25,7 @@ import { FormsModule } from '@angular/forms';
                      transition-all"
             />
           </div>
-          <button class="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm" title="Add Organization">
+          <button (click)="isAdding.set(true)" class="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm" title="Add Organization">
             <lucide-icon name="plus" [size]="16" />
           </button>
         </div>
@@ -40,7 +40,7 @@ import { FormsModule } from '@angular/forms';
           >
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center flex-shrink-0 text-lg font-bold text-slate-400">
-                {{ org.name.charAt(0) }}
+                {{ org.name.charAt(0).toUpperCase() }}
               </div>
               <div class="flex-1 min-w-0">
                 <h3 class="text-sm font-semibold text-slate-800 truncate">{{ org.name }}</h3>
@@ -54,10 +54,61 @@ import { FormsModule } from '@angular/forms';
           </div>
         }
       </div>
+
+      <!-- Add Org Modal -->
+      @if (isAdding()) {
+        <div class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+          <div class="bg-white rounded-2xl shadow-xl w-full max-w-sm border border-slate-200 overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+              <h3 class="text-sm font-bold text-slate-800">Add Organization</h3>
+              <button (click)="cancelAdd()" class="text-slate-400 hover:text-slate-700">
+                <lucide-icon name="x" [size]="16" />
+              </button>
+            </div>
+            <div class="p-6 space-y-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1.5">Company Name *</label>
+                <input [(ngModel)]="newOrgName" type="text" placeholder="e.g. Google" class="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500 bg-slate-50">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1.5">Industry</label>
+                <input [(ngModel)]="newOrgIndustry" type="text" placeholder="e.g. Technology" class="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500 bg-slate-50">
+              </div>
+            </div>
+            <div class="px-6 py-4 border-t border-slate-100 flex items-center justify-end gap-3 bg-slate-50">
+              <button (click)="cancelAdd()" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-200 rounded-lg">Cancel</button>
+              <button (click)="saveOrg()" [disabled]="!newOrgName.trim()" class="px-4 py-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 rounded-lg">Save</button>
+            </div>
+          </div>
+        </div>
+      }
     </div>
   `
 })
 export class OrganizationListComponent {
   readonly orgService = inject(OrganizationService);
+  
   searchQuery = signal('');
+  isAdding = signal(false);
+  
+  newOrgName = '';
+  newOrgIndustry = '';
+
+  cancelAdd() {
+    this.isAdding.set(false);
+    this.newOrgName = '';
+    this.newOrgIndustry = '';
+  }
+
+  saveOrg() {
+    if (!this.newOrgName.trim()) return;
+    
+    this.orgService.add({
+      name: this.newOrgName.trim(),
+      industry: this.newOrgIndustry.trim() || undefined,
+      tags: []
+    });
+    
+    this.cancelAdd();
+  }
 }
