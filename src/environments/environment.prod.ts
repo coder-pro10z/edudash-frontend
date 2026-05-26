@@ -1,1 +1,4 @@
-https://fullstackmastery.onrender.com/
+
+export const environment = {
+  apiUrl: 'https://fullstackmastery.onrender.com/api'
+};
