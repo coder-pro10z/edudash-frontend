@@ -96,8 +96,15 @@ export const routes: Routes = [
               {
                 path: 'contacts',
                 loadComponent: () => import('./features/job-description/components/tabs/contacts/contacts-tab.component').then(m => m.ContactsTabComponent)
+              },
+              {
+                path: 'notes',
+                loadComponent: () => import('./features/job-description/components/tabs/notes/notes-tab.component').then(m => m.NotesTabComponent)
+              },
+              {
+                path: 'questions',
+                loadComponent: () => import('./features/job-description/components/tabs/questions/questions-tab.component').then(m => m.QuestionsTabComponent)
               }
-              // Notes, Questions, Resume Vault tabs will be added later
             ]
           }
         ]
