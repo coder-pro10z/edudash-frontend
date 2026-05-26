@@ -90,7 +90,7 @@ All colors are defined as CSS custom properties in `styles.scss` under `@layer b
 | `--color-success`        | `#10B981` (Em-500)| Mastery, Streaks, Correct answers                 |
 | `--color-bg-default`     | `#F8FAFC` (Sl-50)| Page background, cool breathable off-white         |
 | `--color-surface`        | `#FFFFFF` (White)| Cards, modals, nav chrome, sidebar pop             |
-| `--color-border`         | `#E2E8F0` (Sl-200)| Universal dividers, inputs, structural thin lines  |
+| `--color-border`         | `#E2E8F0` (Sl-200)| Universal dividers, inputs, structural thin lines |
 | `--color-text-primary`   | `#202124`        | Headings, primary body                             |
 | `--color-text-secondary` | `#5F6368`        | Subtitles, meta, placeholders                      |
 
@@ -171,9 +171,9 @@ Three shadow levels defined as CSS custom properties:
 
 | Level | Token              | CSS Value                           | Use Case                |
 |-------|--------------------|-------------------------------------|-------------------------|
-| 1     | `--shadow-level-1` | `0 1px 2px rgba(0,0,0,0.08)`       | Cards (default)         |
-| 2     | `--shadow-level-2` | `0 4px 8px rgba(0,0,0,0.12)`       | Cards (hover), dropdowns|
-| 3     | `--shadow-level-3` | `0 8px 16px rgba(0,0,0,0.14)`      | Modals, overlays        |
+| 1     | `--shadow-level-1` | `0 1px 2px rgba(0,0,0,0.08)`      | Cards (default)         |
+| 2     | `--shadow-level-2` | `0 4px 8px rgba(0,0,0,0.12)`      | Cards (hover), dropdowns|
+| 3     | `--shadow-level-3` | `0 8px 16px rgba(0,0,0,0.14)`     | Modals, overlays        |
 
 ### Card Pattern
 ```html
@@ -208,7 +208,7 @@ import { LucideAngularModule } from 'lucide-angular';
 
 ### Primary Navigation Icons
 
-| Route             | Icon Name         |
+| Route              | Icon Name         |
 |--------------------|-------------------|
 | Dashboard          | `layout-dashboard`|
 | Learning Lab       | `book-open`       |
@@ -219,7 +219,10 @@ import { LucideAngularModule } from 'lucide-angular';
 | Search             | `search`          |
 | Settings           | `settings`        |
 | Logout             | `log-out`         |
+| Docs               | `book`/`folder`   |
+| Job Description    | `pencil`/`pen`    |
 
+ 
 ### Sizing Guide
 | Context             | Size  |
 |---------------------|-------|
@@ -237,13 +240,13 @@ import { LucideAngularModule } from 'lucide-angular';
 ┌────────────────────────────────────────────────────────┐
 │                                                        │
 │  ┌──────────┐  ┌──────────────────────────────────┐    │
-│  │          │  │  TopNavComponent (h-16)           │    │
+│  │          │  │  TopNavComponent (h-16)          │    │
 │  │ Sidebar  │  ├──────────────────────────────────┤    │
 │  │  (w-64)  │  │                                  │    │
-│  │          │  │   <router-outlet />               │    │
-│  │ bg-white │  │   (flex-1, overflow-y-auto)       │    │
+│  │          │  │   <router-outlet />              │    │
+│  │ bg-white │  │   (flex-1, overflow-y-auto)      │    │
 │  │ border-r │  │                                  │    │
-│  │          │  │   Padding: p-6                    │    │
+│  │          │  │   Padding: p-6                   │    │
 │  │          │  │                                  │    │
 │  └──────────┘  └──────────────────────────────────┘    │
 │                                                        │
@@ -595,5 +598,5 @@ class="focus-ring"
 
 ---
 
-> **Last Updated:** 2026-04-28
+> **Last Updated:** 2026-05-26
 > **Maintained by:** Praveen Kashyap

@@ -23,14 +23,18 @@ The EduDash logo links to `/dashboard` for an app-first experience.
 | Learning Lab | `/learning-lab` | `LearningLabComponent` | Interactive lessons and widgets |
 | Quiz | `/quiz` | `QuizComponent` | Topic-based practice quizzes |
 | Landing | `/` | `LandingComponent` | Public/product intro, not main navbar |
+| Job Description | `/job-description`| `JobDescriptionComponent`| contains JD and resume for the Job |
+
+| Docs | `/docs`| `DocsComponent`| contains JD and resume for the Job |
+
 
 ## Screen Purpose
 
-| Screen | Primary Job |
-|---|---|
-| Question Bank | Browse, search, filter, import, add, and review interview questions. |
-| Learning Lab | Practice concepts with quiz widgets, graphs, SQL visuals, and table exercises. |
-| Quiz | Run focused topic assessments with answer choices, progress, and score review. |
+| Screen | Primary Job | Secodary Job/Fuction |
+|---|---|---|
+| Question Bank | Browse, search, filter, import, add, and review interview questions. | |
+| Learning Lab | Practice concepts with quiz widgets, graphs, SQL visuals, and table exercises. | Add to canvas the Questions, answers, keywords, scenarios, Links |
+| Quiz | Run focused topic assessments with answer choices, progress, and score review. | |
 
 ## Landing Page Recommendation
 

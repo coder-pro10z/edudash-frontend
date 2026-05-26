@@ -59,6 +59,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/quiz/quiz.component').then(m => m.QuizComponent),
       },
+      // {
+      //   path: 'job-description',
+      //   loadComponent: () =>
+      //     import('./features/job-description/job-description.component').then(m => m.JobDescriptionComponent),
+      // },
       // Legacy alias
       {
         path: 'interactive-lessons',
@@ -96,6 +101,14 @@ export const routes: Routes = [
             m => m.AdminDashboardComponent
           ),
       },
+      // {
+      //   path: 'docs',
+      //   // Stub: swap with real component when ready
+      //   loadComponent: () =>
+      //     import('./features/admin/docs/docs.component').then(
+      //       m => m.AdminDashboardComponent
+      //     ),
+      // },
     ],
   },
 
