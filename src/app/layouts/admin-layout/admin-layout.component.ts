@@ -38,7 +38,13 @@ import { TopNavComponent } from '../components/top-nav/top-nav.component';
         </div>
 
         <!-- Admin Nav Links -->
-        <nav class="flex-1 overflow-y-auto py-4 px-2 space-y-1">
+        <nav class="flex-1 overflow-y-auto py-4 px-2 space-y-0.5">
+
+          <!-- Section: Management -->
+          <span class="block px-2 mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+            Management
+          </span>
+
           <a
             id="admin-nav-dashboard"
             routerLink="/admin/dashboard"
@@ -57,6 +63,7 @@ import { TopNavComponent } from '../components/top-nav/top-nav.component';
             id="admin-nav-import"
             routerLink="/admin/import"
             routerLinkActive="bg-violet-50 text-violet-700 font-semibold border-l-2 border-violet-600"
+            [routerLinkActiveOptions]="{ exact: true }"
             class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
                    text-slate-600 border-l-2 border-transparent
                    hover:bg-slate-100 hover:text-slate-900
@@ -70,6 +77,7 @@ import { TopNavComponent } from '../components/top-nav/top-nav.component';
             id="admin-nav-question-bank"
             routerLink="/admin/question-bank"
             routerLinkActive="bg-violet-50 text-violet-700 font-semibold border-l-2 border-violet-600"
+            [routerLinkActiveOptions]="{ exact: true }"
             class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
                    text-slate-600 border-l-2 border-transparent
                    hover:bg-slate-100 hover:text-slate-900
@@ -78,6 +86,29 @@ import { TopNavComponent } from '../components/top-nav/top-nav.component';
             <lucide-icon name="database" [size]="16" class="flex-shrink-0" />
             Question Bank
           </a>
+
+          <!-- Divider -->
+          <div class="border-t border-slate-100 my-3 mx-1"></div>
+
+          <!-- Section: Resources -->
+          <span class="block px-2 mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+            Resources
+          </span>
+
+          <a
+            id="admin-nav-docs"
+            routerLink="/admin/docs"
+            routerLinkActive="bg-violet-50 text-violet-700 font-semibold border-l-2 border-violet-600"
+            [routerLinkActiveOptions]="{ exact: false }"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
+                   text-slate-600 border-l-2 border-transparent
+                   hover:bg-slate-100 hover:text-slate-900
+                   transition-colors duration-150"
+          >
+            <lucide-icon name="book-open" [size]="16" class="flex-shrink-0" />
+            Docs
+          </a>
+
         </nav>
 
         <!-- Sidebar Footer: Back to App + Sign Out -->

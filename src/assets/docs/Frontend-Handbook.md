@@ -295,11 +295,9 @@ Same structural pattern, but with admin-specific sidebar nav items (Dashboard, I
 /skill-tree          → SkillTreeComponent (inside AppLayout)
 /interview-canvas    → InterviewCanvasComponent (inside AppLayout)
 /quiz                → QuizComponent (inside AppLayout)
-/job-description     → JobDescriptionComponent (inside AppLayout) ← NEW
 /admin               → Redirect to /admin/dashboard
 /admin/dashboard     → AdminDashboardComponent (inside AdminLayout)
 /admin/import        → AdminImportComponent (inside AdminLayout)
-/admin/docs          → DocsComponent (inside AdminLayout) ← NEW
 /**                  → Redirect to /dashboard
 ```
 
@@ -595,10 +593,8 @@ class="focus-ring"
 | Skill Tree           | `/skill-tree`        | AppLayout  | To rebuild  |
 | Interview Canvas     | `/interview-canvas`  | AppLayout  | To rebuild  |
 | Quiz Player          | `/quiz`              | AppLayout  | To rebuild  |
-| Job Description      | `/job-description`   | AppLayout  | ✅ Added     |
 | Admin Dashboard      | `/admin/dashboard`   | AdminLayout| To rebuild  |
 | Admin Import         | `/admin/import`      | AdminLayout| Stub        |
-| Admin Docs           | `/admin/docs`        | AdminLayout| ✅ Added     |
 
 ---
 
