@@ -22,7 +22,9 @@ The EduDash logo links to `/dashboard` for an app-first experience.
 | Question Bank | `/question-bank` | `QuestionBankComponent` | Manage interview questions |
 | Learning Lab | `/learning-lab` | `LearningLabComponent` | Interactive lessons and widgets |
 | Quiz | `/quiz` | `QuizComponent` | Topic-based practice quizzes |
-| Job Description | `/job-description` | `JobDescriptionComponent` | Upload or paste JD content / links; saved locally |
+| Job Hunt Command Center | `/job-description` | `JobDescriptionComponent` | Root shell for orgs/opportunities |
+| Org Workspace | `/job-description/org/:orgId` | `OrganizationWorkspaceComponent` | Org overview and contacts |
+| Opp Workspace | `/job-description/:id` | `OpportunityWorkspaceComponent` | Opp overview, notes, questions |
 | Landing | `/` | `LandingComponent` | Public/product intro, not main navbar |
 | Admin Docs | `/admin/docs` | `DocsComponent` | Developer reference — renders repo markdown docs |
 

@@ -63,6 +63,39 @@ export const routes: Routes = [
         path: 'job-description',
         loadComponent: () =>
           import('./features/job-description/job-description.component').then(m => m.JobDescriptionComponent),
+        children: [
+          {
+            path: 'org/:orgId',
+            loadComponent: () =>
+              import('./features/job-description/components/organization-workspace/organization-workspace.component').then(m => m.OrganizationWorkspaceComponent),
+            children: [
+              {
+                path: '',
+                loadComponent: () => import('./features/job-description/components/tabs/overview/org-overview-tab.component').then(m => m.OrgOverviewTabComponent)
+              },
+              {
+                path: 'contacts',
+                loadComponent: () => import('./features/job-description/components/tabs/contacts/contacts-tab.component').then(m => m.ContactsTabComponent)
+              }
+            ]
+          },
+          {
+            path: ':id',
+            loadComponent: () =>
+              import('./features/job-description/components/opportunity-workspace/opportunity-workspace.component').then(m => m.OpportunityWorkspaceComponent),
+            children: [
+              {
+                path: '',
+                loadComponent: () => import('./features/job-description/components/tabs/overview/opp-overview-tab.component').then(m => m.OppOverviewTabComponent)
+              },
+              {
+                path: 'contacts',
+                loadComponent: () => import('./features/job-description/components/tabs/contacts/contacts-tab.component').then(m => m.ContactsTabComponent)
+              }
+              // Notes, Questions, Resume Vault tabs will be added later
+            ]
+          }
+        ]
       },
       // Legacy alias
       {

@@ -295,9 +295,13 @@ Same structural pattern, but with admin-specific sidebar nav items (Dashboard, I
 /skill-tree          → SkillTreeComponent (inside AppLayout)
 /interview-canvas    → InterviewCanvasComponent (inside AppLayout)
 /quiz                → QuizComponent (inside AppLayout)
+/job-description     → JobDescriptionComponent (Command Center Root)
+/job-description/org/:orgId → OrganizationWorkspaceComponent
+/job-description/:id        → OpportunityWorkspaceComponent
 /admin               → Redirect to /admin/dashboard
 /admin/dashboard     → AdminDashboardComponent (inside AdminLayout)
 /admin/import        → AdminImportComponent (inside AdminLayout)
+/admin/docs          → DocsComponent (inside AdminLayout) ← NEW
 /**                  → Redirect to /dashboard
 ```
 
@@ -593,8 +597,12 @@ class="focus-ring"
 | Skill Tree           | `/skill-tree`        | AppLayout  | To rebuild  |
 | Interview Canvas     | `/interview-canvas`  | AppLayout  | To rebuild  |
 | Quiz Player          | `/quiz`              | AppLayout  | To rebuild  |
+| Job Hunt Command Center | `/job-description` | AppLayout  | ✅ Phase 1   |
+| Org Workspace        | `/job-description/org/:orgId` | AppLayout | ✅ Phase 1 |
+| Opp Workspace        | `/job-description/:id` | AppLayout | ✅ Phase 1 |
 | Admin Dashboard      | `/admin/dashboard`   | AdminLayout| To rebuild  |
 | Admin Import         | `/admin/import`      | AdminLayout| Stub        |
+| Admin Docs           | `/admin/docs`        | AdminLayout| ✅ Added     |
 
 ---
 

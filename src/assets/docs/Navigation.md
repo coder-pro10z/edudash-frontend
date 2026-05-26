@@ -22,10 +22,11 @@ The EduDash logo links to `/dashboard` for an app-first experience.
 | Question Bank | `/question-bank` | `QuestionBankComponent` | Manage interview questions |
 | Learning Lab | `/learning-lab` | `LearningLabComponent` | Interactive lessons and widgets |
 | Quiz | `/quiz` | `QuizComponent` | Topic-based practice quizzes |
+| Job Hunt Command Center | `/job-description` | `JobDescriptionComponent` | Root shell for orgs/opportunities |
+| Org Workspace | `/job-description/org/:orgId` | `OrganizationWorkspaceComponent` | Org overview and contacts |
+| Opp Workspace | `/job-description/:id` | `OpportunityWorkspaceComponent` | Opp overview, notes, questions |
 | Landing | `/` | `LandingComponent` | Public/product intro, not main navbar |
-| Job Description | `/job-description`| `JobDescriptionComponent`| contains JD and resume for the Job |
-
-| Docs | `/docs`| `DocsComponent`| contains JD and resume for the Job |
+| Admin Docs | `/admin/docs` | `DocsComponent` | Developer reference — renders repo markdown docs |
 
 
 ## Screen Purpose
@@ -49,6 +50,11 @@ The older `/interactive-lessons` path redirects to `/learning-lab` for backward 
 - `/` opens the landing page.
 - Landing is not visible as a top-level navbar item.
 - `/dashboard`, `/interview-canvas`, `/skill-tree`, `/question-bank`, `/learning-lab`, and `/quiz` appear in the navbar.
+- `/job-description` appears in the student sidebar under **Tools** section.
+- `/job-description` allows pasting JD text (paste tab) or adding a URL (link tab).
+- Saved JDs persist across page refreshes (localStorage).
+- `/admin/docs` appears in the admin sidebar under **Resources** section.
+- `/admin/docs` renders each markdown file from `src/assets/docs/` with proper formatting.
 - `/question-bank`, `/learning-lab`, and `/quiz` lazy-load successfully.
 - `/interactive-lessons` redirects to `/learning-lab`.
 - `npm run build` completes successfully.
