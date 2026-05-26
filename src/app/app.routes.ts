@@ -65,6 +65,11 @@ export const routes: Routes = [
           import('./features/job-description/job-description.component').then(m => m.JobDescriptionComponent),
         children: [
           {
+            path: 'vault',
+            loadComponent: () =>
+              import('./features/job-description/components/resume-vault/resume-vault.component').then(m => m.ResumeVaultComponent),
+          },
+          {
             path: 'org/:orgId',
             loadComponent: () =>
               import('./features/job-description/components/organization-workspace/organization-workspace.component').then(m => m.OrganizationWorkspaceComponent),

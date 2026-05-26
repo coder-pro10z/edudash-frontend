@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { OrganizationListComponent } from './components/organization-list/organization-list.component';
 import { OpportunityListComponent } from './components/opportunity-list/opportunity-list.component';
@@ -8,7 +8,7 @@ import { OpportunityListComponent } from './components/opportunity-list/opportun
 @Component({
   selector: 'app-job-description',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, LucideAngularModule, OrganizationListComponent, OpportunityListComponent],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, LucideAngularModule, OrganizationListComponent, OpportunityListComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="flex h-full bg-slate-50 overflow-hidden">
@@ -57,6 +57,24 @@ import { OpportunityListComponent } from './components/opportunity-list/opportun
           } @else {
             <app-opportunity-list />
           }
+        </div>
+
+        <!-- Left Panel Footer (Vault) -->
+        <div class="px-4 py-3 border-t border-slate-200 bg-slate-50 mt-auto">
+          <a
+            routerLink="/job-description/vault"
+            routerLinkActive="bg-blue-100 text-blue-700 border-blue-200 shadow-sm"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 hover:bg-white hover:shadow-sm border border-transparent transition-all w-full"
+          >
+            <div class="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center">
+              <lucide-icon name="file-text" [size]="14" class="text-indigo-600" />
+            </div>
+            <div class="flex-1 text-left">
+              <div class="text-sm font-bold text-slate-800">Resume Vault</div>
+              <div class="text-[10px] font-medium text-slate-500 uppercase tracking-wider">Global templates</div>
+            </div>
+          </a>
         </div>
       </div>
 
