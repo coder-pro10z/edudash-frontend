@@ -57,7 +57,8 @@
                 <article @listAnimation class="premium-card group transition-all duration-500" 
                          [class.opacity-40]="expandedQuestionId && expandedQuestionId !== question.id"
                          [class.shadow-2xl]="expandedQuestionId === question.id"
-                         [class.-translate-y-1]="expandedQuestionId === question.id">
+                         [class.-translate-y-1]="expandedQuestionId === question.id"
+                         [class.is-expanded]="expandedQuestionId === question.id">
                     <!-- Top Badges -->
                     <div class="flex items-start justify-between">
                         <div class="flex gap-2">

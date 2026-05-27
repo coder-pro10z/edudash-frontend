@@ -16,6 +16,12 @@ $apple-ease: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 500ms;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
     align-self: flex-start;
+    z-index: 1;
+
+    &.is-expanded {
+        z-index: 45;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
+    }
 
     &:hover {
         border-color: rgba(26, 115, 232, 0.2);
@@ -46,10 +52,16 @@ $apple-ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .answer-box {
-    position: relative;
-    background-color: rgba(239, 246, 255, 0.5);
-    backdrop-filter: blur(4px);
-    border-radius: 1rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 50;
+    background-color: #ffffff;
+    backdrop-filter: blur(16px);
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
+    border-radius: 20px;
     padding: 1.25rem;
     overflow: hidden;
 

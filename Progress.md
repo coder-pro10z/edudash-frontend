@@ -151,6 +151,7 @@ With the HTML, CSS, and component structure strictly ported and compiling succes
 3. Implement `Chart.js` rendering inside `RadarChartComponent` using Angular lifecycle-safe initialization and cleanup.
 
 ### Error Fixes & Refinements (Phase 5)
+- **Stable Answer Panel Overlay (Question Bank)**: Upgraded the `QuestionBankComponent` layout so that expanding a question's solution overlays it cleanly above the grid row below instead of pushing the subsequent rows down. Achieved by setting `.premium-card.is-expanded` to `z-index: 45` and absolutely positioning `.answer-box` at the card's base, ensuring standard page grid stability and premium UX transitions.
 - **Auth Interceptor Registration**: Registered the `authInterceptor` in the `provideHttpClient` configuration inside `src/app/app.config.ts`. This ensures that all secure API requests (like fetching categories or importing files under `/api/admin/...`) correctly append the user's JSON Web Token (JWT) Bearer token in the `Authorization` header, resolving `401 (Unauthorized)` errors for logged-in admin users.
 - **Icon Resolution**: Fixed `check-circle-2` and `check-circle` resolution errors by converting them to the correctly supported `circle-check` Lucide alias.
 - **ViewChildren Crash**: Resolved `TypeError: def.findHostDirectiveDefs is not a function` by moving IntersectionObserver logic entirely into `ngAfterViewInit` and safely checking array length before `.forEach` execution.
