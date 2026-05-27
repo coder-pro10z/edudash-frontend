@@ -20,6 +20,15 @@ import {
   standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [`
+    @keyframes slideUp {
+      from { transform: translate(-50%, 1.5rem) scale(0.95); opacity: 0; }
+      to { transform: translate(-50%, 0) scale(1); opacity: 1; }
+    }
+    .animate-slide-up {
+      animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  `],
   template: `
     <div class="space-y-6 animate-fade-in">
 
@@ -272,8 +281,40 @@ import {
           </div>
         </div>
       </div>
-    </div>
-  `,
+
+      <!-- ====== FLOATING DRY RUN SUCCESS TOAST (SANDWICH) ====== -->
+      @if (showDryRunSuccessSnackbar()) {
+        <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-slide-up w-full max-w-md px-4">
+          <div class="bg-slate-950 border border-slate-800 text-white rounded-2xl shadow-2xl p-4 flex items-center justify-between gap-4 backdrop-blur-md bg-opacity-95">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-10 h-10 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 animate-bounce">
+                <lucide-icon name="file-check" class="text-emerald-400" [size]="20" />
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs font-bold text-slate-100">Dry Run Validation Passed!</p>
+                <p class="text-[11px] text-slate-400 mt-0.5 truncate">
+                  {{ result()?.imported }} questions are valid. Ready for live database upload.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 flex-shrink-0">
+              <button
+                (click)="dismissSnackbar()"
+                class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+              >
+                Dismiss
+              </button>
+              <button
+                (click)="switchToLiveAndImport()"
+                class="px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-violet-600 hover:bg-violet-500 transition-all shadow-md active:scale-95"
+              >
+                Go Live & Import
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+  `
 })
 export class AdminImportComponent implements OnInit {
   private readonly api = inject(AdminApiService);
@@ -297,6 +338,7 @@ export class AdminImportComponent implements OnInit {
   // ── Import state ──────────────────────────────────────────────────────────
   categoryId = 0;
   dryRun = false;
+  readonly showDryRunSuccessSnackbar = signal(false);
 
   readonly file = signal<File | null>(null);
   readonly dragging = signal(false);
@@ -356,13 +398,30 @@ export class AdminImportComponent implements OnInit {
     this.uploading.set(true);
     this.result.set(null);
     this.errorMsg.set('');
+    this.showDryRunSuccessSnackbar.set(false);
     this.api.importFile(f, this.categoryId || 1, this.dryRun).subscribe({
-      next: r => { this.result.set(r); this.uploading.set(false); },
+      next: r => {
+        this.result.set(r);
+        this.uploading.set(false);
+        if (this.dryRun && r.failed === 0 && r.imported > 0) {
+          this.showDryRunSuccessSnackbar.set(true);
+        }
+      },
       error: err => {
         const msg = err?.error?.error ?? err?.error?.title ?? err?.message ?? 'Upload failed. Please try again.';
         this.errorMsg.set(msg);
         this.uploading.set(false);
       },
     });
+  }
+
+  dismissSnackbar(): void {
+    this.showDryRunSuccessSnackbar.set(false);
+  }
+
+  switchToLiveAndImport(): void {
+    this.dryRun = false;
+    this.showDryRunSuccessSnackbar.set(false);
+    this.runImport();
   }
 }

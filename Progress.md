@@ -137,6 +137,8 @@ With the HTML, CSS, and component structure strictly ported and compiling succes
     - `AdminImportComponent` (📥 File Ingest Utility): Rebuilt the upload UI with visual drag-and-drop zones, file list queues, validation states, and a direct pipeline to the backend bulk-import endpoint.
   - **Architecture & Sidebar Overhaul:** Updated `src/app/layouts/admin-layout/admin-layout.component.ts` sidebar links (removing dead routes like `/admin/question-bank`) and implemented proper router-active states. Wired all 4 components into lazy-loaded routes in `src/app/app.routes.ts`.
   - **Premium Playbook Styling:** Applied clean white card backgrounds, `#F8F9FA` workspace gray, premium typography, and active highlights matching the overall EduDash theme.
+  - **Floating Success Snackbars (Sandwich Alert):** Implemented an animated floating success alert snackbar in `AdminImportComponent` that appears immediately after a successful Dry Run, allowing users to switch off Dry Run mode and perform the live import in one single click.
+  - **Sample Data Refinement:** Upgraded `docs/SampleQuestions/Sample1.json` to use valid category slugs and difficulty levels matching the seeded taxonomy system.
   - **Code Cleanup:** Permanently deleted the old `admin-dashboard.component.ts` to keep the codebase modular, light, and optimized for bundle sizes.
 
 #### Verification

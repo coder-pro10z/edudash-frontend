@@ -2,7 +2,17 @@ import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { LucideAngularModule, icons, Unlock } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  icons,
+  Unlock,
+  FileEdit,
+  UploadCloud,
+  AlertTriangle,
+  Folder,
+  FolderOpen,
+  Trash2
+} from 'lucide-angular';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 
 // ── Import Pipeline — Abstract Services ─────────────────────────────────────
@@ -26,7 +36,16 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimationsAsync(),
-    importProvidersFrom(LucideAngularModule.pick({ ...icons, Unlock })),
+    importProvidersFrom(LucideAngularModule.pick({
+      ...icons,
+      Unlock,
+      FileEdit,
+      UploadCloud,
+      AlertTriangle,
+      Folder,
+      FolderOpen,
+      Trash2
+    })),
 
     // ── Import Pipeline Providers ────────────────────────────────────────────
     // To swap to backend: replace useClass on any of these. Zero UI changes needed.
