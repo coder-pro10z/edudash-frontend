@@ -125,6 +125,20 @@ With the HTML, CSS, and component structure strictly ported and compiling succes
   - **Premium UI Overhaul:** Rebuilt the layout using the Antigravity Premium Light design system (`glass-panel`, `.premium-card`, Material 3 contextual difficulty colors, and smooth 400ms cubic-bezier layout morphing).
   - **Command Center:** Migrated the traditional filter form into a robust Linear/Slack-style Command Bar (`FilterBarComponent`) complete with active ghost tags.
   - **Micro-Interactions & Gamification:** Integrated `overflow-hidden` safe animated accordions for "Official Guidance", implemented bouncy icon-only action toggles, and added mock progress metrics (`85% Solved` tracking pills) to elevate information density.
+
+#### Phase 5.4: Admin Module Breakdown & Rebuild
+- **Task:** Decouple the monolithic 789-line `AdminDashboardComponent` into dedicated feature components, wire them up to the `.NET 8` Clean Architecture backend, and restyle using the light Frontend Playbook system.
+- **Completed:**
+  - **Deconstructed God Component:** Successfully split the old monolithic panel into 5 modern, standalone, single-purpose components located in `/src/app/features/admin/...`:
+    - `AdminOverviewComponent` (📊 Dashboard Stats): Connects to the backend `getDashboardStats()` service to render live platform metrics, difficulty breakdown bars, and recent activity logs.
+    - `AdminQuestionsComponent` (❓ Questions Manager): A clean, tabular view supporting robust keyword filtering, status/difficulty filtering, server-side data loading, and quick action controls.
+    - `QuestionModalComponent` (📝 Private Editor): A slide-up / overlay dialog for creating and editing questions. Integrates a markdown preview panel and handles validation.
+    - `AdminCategoriesComponent` (🏷 Taxonomy Editor): Displays hierarchical folders, allows inline addition of root and child categories, and provides deletion capabilities for unused categories.
+    - `AdminImportComponent` (📥 File Ingest Utility): Rebuilt the upload UI with visual drag-and-drop zones, file list queues, validation states, and a direct pipeline to the backend bulk-import endpoint.
+  - **Architecture & Sidebar Overhaul:** Updated `src/app/layouts/admin-layout/admin-layout.component.ts` sidebar links (removing dead routes like `/admin/question-bank`) and implemented proper router-active states. Wired all 4 components into lazy-loaded routes in `src/app/app.routes.ts`.
+  - **Premium Playbook Styling:** Applied clean white card backgrounds, `#F8F9FA` workspace gray, premium typography, and active highlights matching the overall EduDash theme.
+  - **Code Cleanup:** Permanently deleted the old `admin-dashboard.component.ts` to keep the codebase modular, light, and optimized for bundle sizes.
+
 #### Verification
 - **Build Validation:** Confirmed the Angular app still builds successfully after the Phase 5 foundation changes.
 - **Notes:** The build passes with an existing frontend bundle budget warning still present.

@@ -131,13 +131,31 @@ export const routes: Routes = [
         pathMatch: 'full',
         redirectTo: 'dashboard',
       },
+      // ── 📊 Dashboard Overview ──────────────────────────────────────────────
       {
         path: 'dashboard',
         loadComponent: () =>
-          import('./features/admin/admin-dashboard/admin-dashboard.component').then(
-            m => m.AdminDashboardComponent
+          import('./features/admin/admin-overview/admin-overview.component').then(
+            m => m.AdminOverviewComponent
           ),
       },
+      // ── ❓ Questions Table ──────────────────────────────────────────────────
+      {
+        path: 'questions',
+        loadComponent: () =>
+          import('./features/admin/admin-questions/admin-questions.component').then(
+            m => m.AdminQuestionsComponent
+          ),
+      },
+      // ── 🏷 Categories Tree ──────────────────────────────────────────────────
+      {
+        path: 'categories',
+        loadComponent: () =>
+          import('./features/admin/admin-categories/admin-categories.component').then(
+            m => m.AdminCategoriesComponent
+          ),
+      },
+      // ── 📥 Import ───────────────────────────────────────────────────────────
       {
         path: 'import',
         loadComponent: () =>
@@ -145,6 +163,7 @@ export const routes: Routes = [
             m => m.AdminImportComponent
           ),
       },
+      // ── 📖 Docs ─────────────────────────────────────────────────────────────
       {
         path: 'docs',
         loadComponent: () =>

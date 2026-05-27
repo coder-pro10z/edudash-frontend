@@ -45,6 +45,7 @@ import { TopNavComponent } from '../components/top-nav/top-nav.component';
             Management
           </span>
 
+          <!-- 📊 Dashboard -->
           <a
             id="admin-nav-dashboard"
             routerLink="/admin/dashboard"
@@ -59,6 +60,37 @@ import { TopNavComponent } from '../components/top-nav/top-nav.component';
             Dashboard
           </a>
 
+          <!-- ❓ Questions -->
+          <a
+            id="admin-nav-questions"
+            routerLink="/admin/questions"
+            routerLinkActive="bg-violet-50 text-violet-700 font-semibold border-l-2 border-violet-600"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
+                   text-slate-600 border-l-2 border-transparent
+                   hover:bg-slate-100 hover:text-slate-900
+                   transition-colors duration-150"
+          >
+            <lucide-icon name="database" [size]="16" class="flex-shrink-0" />
+            Questions
+          </a>
+
+          <!-- 🏷 Categories -->
+          <a
+            id="admin-nav-categories"
+            routerLink="/admin/categories"
+            routerLinkActive="bg-violet-50 text-violet-700 font-semibold border-l-2 border-violet-600"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
+                   text-slate-600 border-l-2 border-transparent
+                   hover:bg-slate-100 hover:text-slate-900
+                   transition-colors duration-150"
+          >
+            <lucide-icon name="tag" [size]="16" class="flex-shrink-0" />
+            Categories
+          </a>
+
+          <!-- 📥 Import -->
           <a
             id="admin-nav-import"
             routerLink="/admin/import"
@@ -70,21 +102,7 @@ import { TopNavComponent } from '../components/top-nav/top-nav.component';
                    transition-colors duration-150"
           >
             <lucide-icon name="upload" [size]="16" class="flex-shrink-0" />
-            Import Questions
-          </a>
-
-          <a
-            id="admin-nav-question-bank"
-            routerLink="/admin/question-bank"
-            routerLinkActive="bg-violet-50 text-violet-700 font-semibold border-l-2 border-violet-600"
-            [routerLinkActiveOptions]="{ exact: true }"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
-                   text-slate-600 border-l-2 border-transparent
-                   hover:bg-slate-100 hover:text-slate-900
-                   transition-colors duration-150"
-          >
-            <lucide-icon name="database" [size]="16" class="flex-shrink-0" />
-            Question Bank
+            Import
           </a>
 
           <!-- Divider -->
@@ -95,6 +113,7 @@ import { TopNavComponent } from '../components/top-nav/top-nav.component';
             Resources
           </span>
 
+          <!-- 📖 Docs -->
           <a
             id="admin-nav-docs"
             routerLink="/admin/docs"

@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LucideAngularModule } from 'lucide-angular';
 import {
   AdminApiService,
   BulkImportResultDto,
@@ -17,391 +18,348 @@ import {
 @Component({
   selector: 'app-admin-import',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LucideAngularModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-<div class="space-y-6">
+    <div class="space-y-6 animate-fade-in">
 
-  <!-- ── Page Header ────────────────────────────────────────────────────── -->
-  <div>
-    <h1 class="text-xl font-bold text-slate-800 tracking-tight">Import Questions</h1>
-    <p class="text-sm text-slate-500 mt-1">
-      Bulk-upload questions from a <code class="text-violet-600 font-mono text-xs">.xlsx</code>,
-      <code class="text-violet-600 font-mono text-xs">.csv</code>, or
-      <code class="text-violet-600 font-mono text-xs">.json</code> file.
-      Use <strong>Dry Run</strong> to validate without saving.
-    </p>
-  </div>
-
-  <!-- ── Card ───────────────────────────────────────────────────────────── -->
-  <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 max-w-2xl space-y-6">
-
-    <!-- Default Category -->
-    <div>
-      <label for="import-category" class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">
-        Default Category
-      </label>
-      @if (categoriesLoading()) {
-        <div class="h-9 bg-slate-100 animate-pulse rounded-lg"></div>
-      } @else {
-        <select
-          id="import-category"
-          [(ngModel)]="importCategoryId"
-          class="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm
-                 text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-500/40
-                 focus:border-violet-400 transition-all"
-        >
-          <option [ngValue]="0" disabled>Select a category…</option>
-          @for (cat of flatCategories(); track cat.id) {
-            <option [ngValue]="cat.id">{{ cat.name }}</option>
-          }
-        </select>
-        <p class="text-[11px] text-slate-400 mt-1">
-          Used when a row in the file doesn't specify its own category.
-        </p>
-      }
-    </div>
-
-    <!-- Dry Run Toggle -->
-    <label class="flex items-center gap-3 cursor-pointer select-none">
-      <div class="relative">
-        <input
-          id="import-dry-run"
-          type="checkbox"
-          [(ngModel)]="importDryRun"
-          class="sr-only peer"
-        >
-        <div class="w-10 h-6 rounded-full bg-slate-200 peer-checked:bg-violet-600
-                    transition-colors duration-200"></div>
-        <div class="absolute top-1 left-1 w-4 h-4 rounded-full bg-white shadow
-                    peer-checked:translate-x-4 transition-transform duration-200"></div>
-      </div>
+      <!-- Page Header -->
       <div>
-        <p class="text-sm font-medium text-slate-700">Dry Run</p>
-        <p class="text-xs text-slate-400">Validate the file without saving any data</p>
+        <h1 class="text-2xl font-semibold tracking-tight text-[#202124]">Import Questions</h1>
+        <p class="text-sm text-[#5F6368] mt-1">
+          Bulk-upload questions from
+          <code>.xlsx</code>, <code>.csv</code>, or <code>.json</code>.
+          Use <strong class="font-semibold text-[#202124]">Dry Run</strong> to validate without saving.
+        </p>
       </div>
-    </label>
 
-    <!-- Drop Zone -->
-    <div>
-      <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">
-        File
-      </label>
-      <div
-        id="import-drop-zone"
-        class="border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-200"
-        [class]="dropZoneClass()"
-        (dragover)="onDragOver($event)"
-        (dragleave)="onDragLeave()"
-        (drop)="onDrop($event)"
-        (click)="fileInput.click()"
-        role="button"
-        aria-label="Upload file"
-      >
-        <input
-          #fileInput
-          id="import-file-input"
-          type="file"
-          accept=".xlsx,.json,.csv"
-          class="hidden"
-          (change)="onFileChange($event)"
-        >
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        @if (selectedFile()) {
-          <!-- File selected state -->
-          <div class="flex flex-col items-center gap-2">
-            <div class="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center">
-              <svg class="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+        <!-- ── Left: Upload Form ── -->
+        <div class="lg:col-span-2 space-y-5">
+
+          <!-- Default Category -->
+          <div class="edudash-card">
+            <h2 class="text-sm font-semibold text-[#202124] mb-4 flex items-center gap-2">
+              <lucide-icon name="settings" [size]="15" class="text-[#1A73E8]" />
+              Import Settings
+            </h2>
+
+            <div class="space-y-4">
+              <!-- Category Picker -->
+              <div>
+                <label class="edudash-label" for="import-category">Default Category *</label>
+                @if (catsLoading()) {
+                  <div class="h-10 bg-slate-200 rounded-lg animate-pulse"></div>
+                } @else {
+                  <select id="import-category" [(ngModel)]="categoryId" class="edudash-input">
+                    <option [ngValue]="0" disabled>Select a category…</option>
+                    @for (cat of flatCategories(); track cat.id) {
+                      <option [ngValue]="cat.id">{{ cat.indent }}{{ cat.name }}</option>
+                    }
+                  </select>
+                  <p class="text-xs text-[#5F6368] mt-1">Used when a row doesn't specify its own category.</p>
+                }
+              </div>
+
+              <!-- Dry Run Toggle -->
+              <div class="flex items-center justify-between py-3 border-t border-[#E0E0E0]">
+                <div>
+                  <p class="text-sm font-medium text-[#202124]">Dry Run</p>
+                  <p class="text-xs text-[#5F6368]">Validate the file without saving any data</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer" for="import-dry-run">
+                  <input id="import-dry-run" type="checkbox" [(ngModel)]="dryRun" class="sr-only peer" />
+                  <div class="w-11 h-6 rounded-full bg-[#E0E0E0] peer-checked:bg-[#1A73E8] transition-colors duration-200"></div>
+                  <div class="absolute top-1 left-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 peer-checked:translate-x-5"></div>
+                </label>
+              </div>
             </div>
-            <p class="text-sm font-semibold text-slate-800">{{ selectedFile()!.name }}</p>
-            <p class="text-xs text-slate-400">{{ fileSize() }} · Click or drag to replace</p>
           </div>
-        } @else if (dragging()) {
-          <!-- Drag-over state -->
-          <div class="flex flex-col items-center gap-2">
-            <svg class="w-10 h-10 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-            </svg>
-            <p class="text-sm font-semibold text-violet-600">Drop it here!</p>
+
+          <!-- Drop Zone -->
+          <div class="edudash-card">
+            <label class="edudash-label mb-3" for="import-file-input">Upload File</label>
+            <div
+              id="import-drop-zone"
+              class="border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-all duration-200"
+              [class]="dropZoneClass()"
+              (dragover)="onDragOver($event)"
+              (dragleave)="dragging.set(false)"
+              (drop)="onDrop($event)"
+              (click)="fileInput.click()"
+              role="button"
+              aria-label="Upload file">
+              <input
+                #fileInput
+                id="import-file-input"
+                type="file"
+                accept=".xlsx,.xls,.json,.csv"
+                class="hidden"
+                (change)="onFileChange($event)" />
+
+              @if (file()) {
+                <div class="flex flex-col items-center gap-3">
+                  <div class="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center">
+                    <lucide-icon name="file-check" [size]="24" class="text-emerald-600" />
+                  </div>
+                  <div>
+                    <p class="text-sm font-semibold text-[#202124]">{{ file()!.name }}</p>
+                    <p class="text-xs text-[#5F6368] mt-0.5">{{ fileSize() }} · Click or drag to replace</p>
+                  </div>
+                </div>
+              } @else if (dragging()) {
+                <div class="flex flex-col items-center gap-3">
+                  <lucide-icon name="upload-cloud" [size]="40" class="text-[#1A73E8]" />
+                  <p class="text-sm font-semibold text-[#1A73E8]">Drop it here!</p>
+                </div>
+              } @else {
+                <div class="flex flex-col items-center gap-3">
+                  <lucide-icon name="upload-cloud" [size]="40" class="text-[#5F6368]" />
+                  <div>
+                    <p class="text-sm text-[#202124]">
+                      <span class="font-semibold text-[#1A73E8]">Click to upload</span> or drag & drop
+                    </p>
+                    <p class="text-xs text-[#5F6368] mt-1">.xlsx &nbsp;·&nbsp; .csv &nbsp;·&nbsp; .json</p>
+                  </div>
+                </div>
+              }
+            </div>
           </div>
-        } @else {
-          <!-- Idle state -->
-          <div class="flex flex-col items-center gap-2">
-            <svg class="w-10 h-10 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-            </svg>
-            <p class="text-sm text-slate-600">
-              <span class="font-semibold text-violet-600">Click to upload</span> or drag &amp; drop
+
+          <!-- Progress bar -->
+          @if (uploading()) {
+            <div class="edudash-card">
+              <div class="flex items-center justify-between text-xs text-[#5F6368] mb-2">
+                <span class="flex items-center gap-2">
+                  <lucide-icon name="loader" [size]="14" class="animate-spin text-[#1A73E8]" />
+                  Processing file…
+                </span>
+              </div>
+              <div class="h-2 bg-[#F8F9FA] border border-[#E0E0E0] rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-blue-600 to-violet-600 rounded-full animate-pulse" style="width:70%"></div>
+              </div>
+            </div>
+          }
+
+          <!-- Result Panel -->
+          @if (result()) {
+            <div class="edudash-card border-l-4"
+              [class]="result()!.failed > 0 ? 'border-l-red-500' : result()!.isDryRun ? 'border-l-blue-500' : 'border-l-emerald-500'">
+              <!-- Summary row -->
+              <div class="flex flex-wrap items-center gap-3 mb-4">
+                @if (result()!.isDryRun) {
+                  <span class="badge badge-primary">🔍 Dry Run</span>
+                }
+                <span class="badge badge-success">✓ {{ result()!.imported }} imported</span>
+                @if (result()!.skipped) {
+                  <span class="badge badge-warning">⚠ {{ result()!.skipped }} skipped</span>
+                }
+                @if (result()!.failed) {
+                  <span class="badge bg-red-50 text-red-600 border-red-200">✗ {{ result()!.failed }} failed</span>
+                }
+              </div>
+
+              @if (result()!.warnings.length) {
+                <div class="space-y-1 mb-3">
+                  <p class="text-xs font-semibold text-amber-700 uppercase tracking-wider">Warnings</p>
+                  @for (w of result()!.warnings; track $index) {
+                    <p class="text-xs text-amber-700">⚠ {{ w }}</p>
+                  }
+                </div>
+              }
+              @if (result()!.errors.length) {
+                <div class="space-y-1">
+                  <p class="text-xs font-semibold text-red-600 uppercase tracking-wider">Errors</p>
+                  @for (e of result()!.errors; track $index) {
+                    <p class="text-xs text-red-600">✗ {{ e }}</p>
+                  }
+                </div>
+              }
+            </div>
+          }
+
+          <!-- Error Banner -->
+          @if (errorMsg()) {
+            <div class="edudash-card bg-red-50 border-red-200 flex items-start gap-3">
+              <lucide-icon name="alert-circle" [size]="18" class="text-red-500 flex-shrink-0 mt-0.5" />
+              <p class="text-sm text-red-600">{{ errorMsg() }}</p>
+            </div>
+          }
+
+          <!-- Submit Button -->
+          <button
+            id="import-submit-btn"
+            (click)="runImport()"
+            [disabled]="!file() || uploading() || !categoryId"
+            class="btn btn-primary w-full py-3 text-sm flex items-center justify-center gap-2 disabled:opacity-40">
+            @if (uploading()) {
+              <lucide-icon name="loader" [size]="16" class="animate-spin" />
+              Processing…
+            } @else {
+              <lucide-icon name="upload" [size]="16" />
+              {{ dryRun ? 'Validate File (Dry Run)' : 'Import Questions' }}
+            }
+          </button>
+
+          @if (!categoryId && !uploading()) {
+            <p class="text-center text-xs text-amber-600 flex items-center justify-center gap-1">
+              <lucide-icon name="alert-triangle" [size]="13" />
+              Select a default category before importing.
             </p>
-            <p class="text-xs text-slate-400">.xlsx &nbsp;·&nbsp; .csv &nbsp;·&nbsp; .json</p>
+          }
+        </div>
+
+        <!-- ── Right: Format Guide ── -->
+        <div class="space-y-4">
+          <h2 class="text-xs font-semibold text-[#5F6368] uppercase tracking-wider">Supported Formats</h2>
+
+          <div class="edudash-card">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
+                <lucide-icon name="table" [size]="18" class="text-emerald-600" />
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-[#202124]">.xlsx / .xls</p>
+                <p class="text-xs text-[#5F6368]">Excel spreadsheet</p>
+              </div>
+            </div>
+            <p class="text-xs text-[#5F6368] leading-relaxed">
+              Columns: <code>Title</code>, <code>QuestionText</code>, <code>Difficulty</code>,
+              <code>CategorySlug</code>, <code>AnswerMarkdown</code>
+            </p>
           </div>
-        }
+
+          <div class="edudash-card">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
+                <lucide-icon name="file-text" [size]="18" class="text-blue-600" />
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-[#202124]">.csv</p>
+                <p class="text-xs text-[#5F6368]">Comma-separated values</p>
+              </div>
+            </div>
+            <p class="text-xs text-[#5F6368] leading-relaxed">
+              Same headers as .xlsx. Quoted fields and embedded newlines are supported.
+            </p>
+          </div>
+
+          <div class="edudash-card">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center flex-shrink-0">
+                <lucide-icon name="braces" [size]="18" class="text-violet-600" />
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-[#202124]">.json</p>
+                <p class="text-xs text-[#5F6368]">JSON array</p>
+              </div>
+            </div>
+            <p class="text-xs text-[#5F6368] leading-relaxed">
+              Array under <code>"questions"</code> key. Each object: <code>questionText</code>,
+              <code>difficulty</code>, <code>categorySlug</code>.
+            </p>
+          </div>
+
+          <!-- Tip -->
+          <div class="edudash-card bg-blue-50 border-blue-100">
+            <div class="flex items-start gap-2">
+              <lucide-icon name="lightbulb" [size]="16" class="text-[#1A73E8] flex-shrink-0 mt-0.5" />
+              <p class="text-xs text-[#1A73E8] leading-relaxed">
+                Always run a <strong>Dry Run</strong> first to catch validation errors before committing.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- Progress bar (visible while uploading) -->
-    @if (uploading()) {
-      <div class="space-y-1.5">
-        <div class="flex items-center justify-between text-xs text-slate-500">
-          <span>Processing file…</span>
-          <svg class="w-3.5 h-3.5 animate-spin text-violet-500" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-          </svg>
-        </div>
-        <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-          <div class="h-full bg-gradient-to-r from-violet-500 to-pink-500 rounded-full animate-pulse"
-               style="width: 70%"></div>
-        </div>
-      </div>
-    }
-
-    <!-- Import Result -->
-    @if (result()) {
-      <div
-        id="import-result"
-        class="rounded-xl border text-sm space-y-3 overflow-hidden"
-        [class]="result()!.failed > 0
-          ? 'border-red-200 bg-red-50'
-          : result()!.isDryRun
-            ? 'border-blue-200 bg-blue-50'
-            : 'border-green-200 bg-green-50'"
-      >
-        <!-- Summary row -->
-        <div class="flex flex-wrap items-center gap-4 px-4 py-3 border-b"
-             [class]="result()!.failed > 0
-               ? 'border-red-200'
-               : result()!.isDryRun
-                 ? 'border-blue-200'
-                 : 'border-green-200'">
-
-          @if (result()!.isDryRun) {
-            <span class="inline-flex items-center gap-1.5 text-blue-700 font-semibold text-xs
-                         bg-blue-100 px-2.5 py-1 rounded-full">
-              🔍 DRY RUN
-            </span>
-          }
-
-          <span class="text-green-700 font-medium">
-            ✓ {{ result()!.imported }} imported
-          </span>
-          @if (result()!.skipped) {
-            <span class="text-amber-600 font-medium">
-              ⚠ {{ result()!.skipped }} skipped
-            </span>
-          }
-          @if (result()!.failed) {
-            <span class="text-red-700 font-medium">
-              ✗ {{ result()!.failed }} failed
-            </span>
-          }
-        </div>
-
-        <!-- Warnings -->
-        @if (result()!.warnings.length) {
-          <div class="px-4 pb-2 space-y-1">
-            <p class="text-xs font-semibold text-amber-700 uppercase tracking-wider">Warnings</p>
-            @for (w of result()!.warnings; track $index) {
-              <p class="text-xs text-amber-700">⚠ {{ w }}</p>
-            }
-          </div>
-        }
-
-        <!-- Errors -->
-        @if (result()!.errors.length) {
-          <div class="px-4 pb-4 space-y-1">
-            <p class="text-xs font-semibold text-red-700 uppercase tracking-wider">Errors</p>
-            @for (e of result()!.errors; track $index) {
-              <p class="text-xs text-red-700">✗ {{ e }}</p>
-            }
-          </div>
-        }
-      </div>
-    }
-
-    <!-- Error banner (network / server error) -->
-    @if (errorMsg()) {
-      <div class="flex items-start gap-3 rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
-        <svg class="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
-        </svg>
-        <p>{{ errorMsg() }}</p>
-      </div>
-    }
-
-    <!-- Submit Button -->
-    <button
-      id="import-submit-btn"
-      (click)="runImport()"
-      [disabled]="!selectedFile() || uploading() || !importCategoryId"
-      class="w-full flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl
-             text-sm font-semibold text-white
-             bg-gradient-to-r from-violet-600 to-pink-600
-             hover:from-violet-700 hover:to-pink-700
-             disabled:opacity-40 disabled:cursor-not-allowed
-             shadow-sm hover:shadow-violet-200
-             transition-all duration-200"
-    >
-      @if (uploading()) {
-        <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-        </svg>
-        Processing…
-      } @else {
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-        </svg>
-        {{ importDryRun ? 'Validate File (Dry Run)' : 'Import Questions' }}
-      }
-    </button>
-
-    <!-- Help text -->
-    @if (!importCategoryId && !uploading()) {
-      <p class="text-center text-xs text-amber-600">
-        ⚠ Please select a default category before importing.
-      </p>
-    }
-  </div>
-
-  <!-- ── Format Guide ────────────────────────────────────────────────────── -->
-  <div class="max-w-2xl">
-    <h2 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Supported File Formats</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-
-      <!-- XLSX -->
-      <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-        <div class="flex items-center gap-2 mb-2">
-          <span class="text-lg">📊</span>
-          <span class="text-sm font-semibold text-slate-700">.xlsx</span>
-        </div>
-        <p class="text-xs text-slate-500">Excel spreadsheet. Columns: <code class="text-violet-600">Title</code>, <code class="text-violet-600">QuestionText</code>, <code class="text-violet-600">Difficulty</code>, <code class="text-violet-600">CategorySlug</code>, <code class="text-violet-600">AnswerMarkdown</code></p>
-      </div>
-
-      <!-- CSV -->
-      <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-        <div class="flex items-center gap-2 mb-2">
-          <span class="text-lg">📄</span>
-          <span class="text-sm font-semibold text-slate-700">.csv</span>
-        </div>
-        <p class="text-xs text-slate-500">Comma-separated. Same column headers as XLSX. Quoted fields and embedded newlines are supported.</p>
-      </div>
-
-      <!-- JSON -->
-      <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-        <div class="flex items-center gap-2 mb-2">
-          <span class="text-lg">🗂</span>
-          <span class="text-sm font-semibold text-slate-700">.json</span>
-        </div>
-        <p class="text-xs text-slate-500">Array under <code class="text-violet-600">"questions"</code> key. Each object: <code class="text-violet-600">questionText</code>, <code class="text-violet-600">difficulty</code>, <code class="text-violet-600">categorySlug</code>, etc.</p>
-      </div>
-
-    </div>
-  </div>
-
-</div>
   `,
 })
 export class AdminImportComponent implements OnInit {
   private readonly api = inject(AdminApiService);
 
-  // ── Category state ──────────────────────────────────────────────────────
+  // ── Category state ────────────────────────────────────────────────────────
   readonly categories = signal<CategoryManageDto[]>([]);
-  readonly categoriesLoading = signal(true);
+  readonly catsLoading = signal(true);
 
   readonly flatCategories = computed(() => {
-    const flatten = (cats: CategoryManageDto[], depth = 0): { id: number; name: string }[] =>
-      cats.flatMap(c => [
-        { id: c.id, name: '\u00a0'.repeat(depth * 2) + c.name },
-        ...flatten(c.subCategories ?? [], depth + 1),
-      ]);
-    return flatten(this.categories());
+    const result: { id: number; name: string; indent: string }[] = [];
+    const flatten = (cats: CategoryManageDto[], depth: number) => {
+      for (const c of cats) {
+        result.push({ id: c.id, name: c.name, indent: '\u00a0\u00a0'.repeat(depth) });
+        if (c.subCategories?.length) flatten(c.subCategories, depth + 1);
+      }
+    };
+    flatten(this.categories(), 0);
+    return result;
   });
 
-  // ── Import form state ───────────────────────────────────────────────────
-  importCategoryId = 0;
-  importDryRun = false;
+  // ── Import state ──────────────────────────────────────────────────────────
+  categoryId = 0;
+  dryRun = false;
 
-  readonly selectedFile = signal<File | null>(null);
+  readonly file = signal<File | null>(null);
   readonly dragging = signal(false);
   readonly uploading = signal(false);
   readonly result = signal<BulkImportResultDto | null>(null);
   readonly errorMsg = signal('');
 
   readonly fileSize = computed(() => {
-    const f = this.selectedFile();
+    const f = this.file();
     if (!f) return '';
     const kb = f.size / 1024;
     return kb < 1024 ? `${kb.toFixed(1)} KB` : `${(kb / 1024).toFixed(2)} MB`;
   });
 
   readonly dropZoneClass = computed(() => {
-    if (this.dragging()) return 'border-violet-400 bg-violet-50';
-    if (this.selectedFile()) return 'border-green-400 bg-green-50/40';
-    return 'border-slate-200 hover:border-violet-300 hover:bg-violet-50/30 bg-slate-50/50';
+    if (this.dragging()) return 'border-[#1A73E8] bg-blue-50';
+    if (this.file()) return 'border-emerald-400 bg-emerald-50/40';
+    return 'border-[#E0E0E0] hover:border-[#1A73E8]/50 hover:bg-blue-50/20';
   });
 
-  // ── Lifecycle ───────────────────────────────────────────────────────────
+  // ── Lifecycle ─────────────────────────────────────────────────────────────
   ngOnInit(): void {
     this.api.getCategoryTree().subscribe({
-      next: cats => { this.categories.set(cats); this.categoriesLoading.set(false); },
-      error: () => this.categoriesLoading.set(false),
+      next: cats => { this.categories.set(cats); this.catsLoading.set(false); },
+      error: () => this.catsLoading.set(false),
     });
   }
 
-  // ── Drag & Drop ─────────────────────────────────────────────────────────
+  // ── Drag & Drop ───────────────────────────────────────────────────────────
   onDragOver(e: DragEvent): void {
     e.preventDefault();
     this.dragging.set(true);
   }
 
-  onDragLeave(): void {
-    this.dragging.set(false);
-  }
-
   onDrop(e: DragEvent): void {
     e.preventDefault();
     this.dragging.set(false);
-    const file = e.dataTransfer?.files[0];
-    if (file) this.setFile(file);
+    const f = e.dataTransfer?.files[0];
+    if (f) this.setFile(f);
   }
 
   onFileChange(e: Event): void {
-    const file = (e.target as HTMLInputElement).files?.[0];
-    if (file) this.setFile(file);
+    const f = (e.target as HTMLInputElement).files?.[0];
+    if (f) this.setFile(f);
   }
 
-  private setFile(file: File): void {
-    this.selectedFile.set(file);
+  private setFile(f: File): void {
+    this.file.set(f);
     this.result.set(null);
     this.errorMsg.set('');
   }
 
-  // ── Import ──────────────────────────────────────────────────────────────
+  // ── Import ────────────────────────────────────────────────────────────────
   runImport(): void {
-    const file = this.selectedFile();
-    if (!file || this.uploading()) return;
-
+    const f = this.file();
+    if (!f || this.uploading()) return;
     this.uploading.set(true);
     this.result.set(null);
     this.errorMsg.set('');
-
-    const categoryId = this.importCategoryId || 1;
-
-    this.api.importFile(file, categoryId, this.importDryRun).subscribe({
-      next: r => {
-        this.result.set(r);
-        this.uploading.set(false);
-      },
+    this.api.importFile(f, this.categoryId || 1, this.dryRun).subscribe({
+      next: r => { this.result.set(r); this.uploading.set(false); },
       error: err => {
-        const msg =
-          err?.error?.error ??
-          err?.error?.title ??
-          err?.message ??
-          'Upload failed. Please check the file and try again.';
+        const msg = err?.error?.error ?? err?.error?.title ?? err?.message ?? 'Upload failed. Please try again.';
         this.errorMsg.set(msg);
         this.uploading.set(false);
       },

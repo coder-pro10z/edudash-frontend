@@ -299,9 +299,11 @@ Same structural pattern, but with admin-specific sidebar nav items (Dashboard, I
 /job-description/org/:orgId → OrganizationWorkspaceComponent
 /job-description/:id        → OpportunityWorkspaceComponent
 /admin               → Redirect to /admin/dashboard
-/admin/dashboard     → AdminDashboardComponent (inside AdminLayout)
-/admin/import        → AdminImportComponent (inside AdminLayout)
-/admin/docs          → DocsComponent (inside AdminLayout) ← NEW
+/admin/dashboard     → AdminOverviewComponent    (inside AdminLayout) ✅ NEW
+/admin/questions     → AdminQuestionsComponent   (inside AdminLayout) ✅ NEW
+/admin/categories    → AdminCategoriesComponent  (inside AdminLayout) ✅ NEW
+/admin/import        → AdminImportComponent      (inside AdminLayout) ✅ REBUILT
+/admin/docs          → DocsComponent             (inside AdminLayout)
 /**                  → Redirect to /dashboard
 ```
 
@@ -600,11 +602,13 @@ class="focus-ring"
 | Job Hunt Command Center | `/job-description` | AppLayout  | ✅ Phase 1   |
 | Org Workspace        | `/job-description/org/:orgId` | AppLayout | ✅ Phase 1 |
 | Opp Workspace        | `/job-description/:id` | AppLayout | ✅ Phase 1 |
-| Admin Dashboard      | `/admin/dashboard`   | AdminLayout| To rebuild  |
-| Admin Import         | `/admin/import`      | AdminLayout| Stub        |
+| Admin Overview       | `/admin/dashboard`   | AdminLayout| ✅ Rebuilt   |
+| Admin Questions      | `/admin/questions`   | AdminLayout| ✅ Rebuilt   |
+| Admin Categories     | `/admin/categories`  | AdminLayout| ✅ Rebuilt   |
+| Admin Import         | `/admin/import`      | AdminLayout| ✅ Rebuilt   |
 | Admin Docs           | `/admin/docs`        | AdminLayout| ✅ Added     |
 
 ---
 
-> **Last Updated:** 2026-05-26
+> **Last Updated:** 2026-05-27 — Admin module split complete (Overview, Questions, Categories, Import)
 > **Maintained by:** Praveen Kashyap
