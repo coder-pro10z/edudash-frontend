@@ -8,10 +8,16 @@
             <h1 class="text-3xl font-bold tracking-tight text-[#202124]" contenteditable="true"
                 (blur)="onTitleChange($event)">{{ title() }}</h1>
         </div>
-        <button (click)="resetData()"
-            class="mt-4 md:mt-0 btn bg-[#fce8e6] text-[#c5221f] hover:bg-[#fad2cf] border-transparent transition-colors">
-            <lucide-icon name="trash-2" [size]="16"></lucide-icon> Reset Data
-        </button>
+        <div class="flex items-center gap-3 mt-4 md:mt-0">
+            <button (click)="openImportModal()"
+                class="btn btn-primary flex items-center gap-2">
+                <lucide-icon name="upload" [size]="16"></lucide-icon> Import JD & Resume
+            </button>
+            <button (click)="resetData()"
+                class="btn bg-[#fce8e6] text-[#c5221f] hover:bg-[#fad2cf] border-transparent transition-colors">
+                <lucide-icon name="trash-2" [size]="16"></lucide-icon> Reset
+            </button>
+        </div>
     </header>
 
     <!-- JD vs Resume Checklist -->
@@ -58,8 +64,8 @@
                     <h2 class="text-xl font-semibold text-[#202124]">High-Probability Questions</h2>
                 </div>
                 <div class="flex items-center gap-2 w-full md:w-auto">
-                    <button (click)="openImportModal()" class="btn btn-secondary flex-1 md:flex-none">
-                        <lucide-icon name="upload" [size]="16"></lucide-icon> Import
+                    <button (click)="showQaBulkDrawer.set(true)" class="btn btn-secondary flex-1 md:flex-none">
+                        <lucide-icon name="upload" [size]="16"></lucide-icon> Bulk Import
                     </button>
                     <button (click)="addQA()" class="btn btn-primary flex-1 md:flex-none">
                         <lucide-icon name="plus" [size]="16"></lucide-icon> Add Q&A
@@ -87,18 +93,47 @@
                     <h2 class="text-xl font-semibold text-[#202124]">Keyword Cheat Sheet</h2>
                 </div>
                 <div class="flex items-center gap-2 w-full md:w-auto">
-                    <button (click)="addKeyword()" class="btn btn-primary flex-1 md:flex-none">
-                        <lucide-icon name="plus" [size]="16"></lucide-icon> Add Keyword
+                    <button (click)="showKeywordBulkDrawer.set(true)" class="btn btn-secondary flex-1 md:flex-none">
+                        <lucide-icon name="upload" [size]="16"></lucide-icon> Bulk Import
                     </button>
+                    <!-- Quick single-add -->
+                    @if (addingKeyword()) {
+                        <div class="flex items-center gap-2">
+                            <input [(ngModel)]="newKeywordText" (keydown.enter)="saveNewKeyword()" (keydown.escape)="addingKeyword.set(false)"
+                                placeholder="e.g. Docker" autofocus
+                                class="px-3 py-1.5 border border-[#1A73E8] rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-blue-400 w-40">
+                            <button (click)="saveNewKeyword()" class="btn btn-primary text-xs px-3 py-1.5">Add</button>
+                            <button (click)="addingKeyword.set(false)" class="text-slate-400 hover:text-slate-600"><lucide-icon name="x" [size]="14"></lucide-icon></button>
+                        </div>
+                    } @else {
+                        <button (click)="addingKeyword.set(true)" class="btn btn-primary flex-1 md:flex-none">
+                            <lucide-icon name="plus" [size]="16"></lucide-icon> Add Keyword
+                        </button>
+                    }
                 </div>
             </div>
             <div class="flex justify-end mb-1 mt-2">
-                <span class="text-xs font-bold text-[#34A853]">0/0</span>
+                <span class="text-xs font-bold text-[#34A853]">{{ keywordsCompletedCount() }}/{{ keywordsTotalCount() }}</span>
             </div>
             <div class="w-full bg-[#E0E0E0] rounded-full h-1.5">
-                <div class="bg-[#34A853] h-1.5 rounded-full progress-fill" style="width: 0%"></div>
+                <div class="bg-[#34A853] h-1.5 rounded-full progress-fill" [style.width]="keywordsProgressWidth()"></div>
             </div>
         </div>
         <app-keyword-card></app-keyword-card>
     </section>
 </div>
+
+<!-- Import Modal -->
+@if (showImportModal()) {
+    <app-import-modal (close)="showImportModal.set(false)" (applied)="showImportModal.set(false)"></app-import-modal>
+}
+
+<!-- Q&A Bulk Drawer -->
+@if (showQaBulkDrawer()) {
+    <app-bulk-import-drawer type="qa" (close)="showQaBulkDrawer.set(false)" (added)="showQaBulkDrawer.set(false)"></app-bulk-import-drawer>
+}
+
+<!-- Keyword Bulk Drawer -->
+@if (showKeywordBulkDrawer()) {
+    <app-bulk-import-drawer type="keyword" (close)="showKeywordBulkDrawer.set(false)" (added)="showKeywordBulkDrawer.set(false)"></app-bulk-import-drawer>
+}

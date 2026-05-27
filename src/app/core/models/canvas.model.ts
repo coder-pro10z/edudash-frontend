@@ -4,6 +4,17 @@ export interface ICanvasChecklistItem {
   checked: boolean;
 }
 
+export interface ICanvasKeywordItem {
+  id: string;
+  term: string;
+  def: string;
+  useCase: string;
+  impl: string;
+  checked: boolean;
+  matchStatus?: 'match' | 'missing' | 'nice-to-have';
+  category?: string;
+}
+
 export interface ICanvasChecklistState {
   jdItems: ICanvasChecklistItem[];
   resumeItems: ICanvasChecklistItem[];
@@ -38,4 +49,5 @@ export interface ICanvasState {
   checklist: ICanvasChecklistState;
   pitchStrategy: IPitchStrategyState;
   qaItems: ICanvasQaItem[];
+  keywords: ICanvasKeywordItem[];
 }
