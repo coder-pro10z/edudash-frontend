@@ -149,6 +149,7 @@ With the HTML, CSS, and component structure strictly ported and compiling succes
 3. Implement `Chart.js` rendering inside `RadarChartComponent` using Angular lifecycle-safe initialization and cleanup.
 
 ### Error Fixes & Refinements (Phase 5)
-- **Icon Resolution:** Fixed `check-circle-2` and `check-circle` resolution errors by converting them to the correctly supported `circle-check` Lucide alias.
-- **ViewChildren Crash:** Resolved `TypeError: def.findHostDirectiveDefs is not a function` by moving IntersectionObserver logic entirely into `ngAfterViewInit` and safely checking array length before `.forEach` execution.
-- **Mobile Responsiveness:** Adjusted landing page dimensions, tile ratios (3D Hero Mockup grid converted to `md:grid-cols-12` and stacked on mobile), the Omnibar placement (`top-4` vs `top-6`), the Tactile Playground box sizes, and added a responsive `overflow-x-auto` wrapper for the Skill tree SVG to preserve dimensions on phone screens.
+- **Auth Interceptor Registration**: Registered the `authInterceptor` in the `provideHttpClient` configuration inside `src/app/app.config.ts`. This ensures that all secure API requests (like fetching categories or importing files under `/api/admin/...`) correctly append the user's JSON Web Token (JWT) Bearer token in the `Authorization` header, resolving `401 (Unauthorized)` errors for logged-in admin users.
+- **Icon Resolution**: Fixed `check-circle-2` and `check-circle` resolution errors by converting them to the correctly supported `circle-check` Lucide alias.
+- **ViewChildren Crash**: Resolved `TypeError: def.findHostDirectiveDefs is not a function` by moving IntersectionObserver logic entirely into `ngAfterViewInit` and safely checking array length before `.forEach` execution.
+- **Mobile Responsiveness**: Adjusted landing page dimensions, tile ratios (3D Hero Mockup grid converted to `md:grid-cols-12` and stacked on mobile), the Omnibar placement (`top-4` vs `top-6`), the Tactile Playground box sizes, and added a responsive `overflow-x-auto` wrapper for the Skill tree SVG to preserve dimensions on phone screens.

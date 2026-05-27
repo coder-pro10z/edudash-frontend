@@ -1,8 +1,9 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { LucideAngularModule, icons, Unlock } from 'lucide-angular';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
 
 // ── Import Pipeline — Abstract Services ─────────────────────────────────────
 import { DocumentParserService } from './features/interview-canvas/services/abstract/document-parser.service';
@@ -23,7 +24,7 @@ import { routes } from './app.routes';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimationsAsync(),
     importProvidersFrom(LucideAngularModule.pick({ ...icons, Unlock })),
 
