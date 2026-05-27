@@ -38,6 +38,7 @@ export interface Opportunity {
   jdLink?: string;               // Original posting URL
   tags: string[];                // ["remote", "L5", "FAANG"]
   pinnedResumeId?: string;       // → Resume.id
+  attachments?: Attachment[];    // Screenshots, PDFs, files
   createdAt: string;
   updatedAt: string;
 }

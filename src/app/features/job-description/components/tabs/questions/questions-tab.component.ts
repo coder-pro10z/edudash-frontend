@@ -16,7 +16,7 @@ import { PrepQuestion } from '../../../models/opportunity.models';
       <!-- ── Header & Action ── -->
       <div class="flex items-center justify-between mb-6">
         <h3 class="text-sm font-semibold text-slate-800 flex items-center gap-2">
-          <lucide-icon name="help-circle" [size]="16" class="text-slate-400" />
+          <lucide-icon name="circle-help" [size]="16" class="text-slate-400" />
           Interview Questions
         </h3>
         
@@ -77,7 +77,7 @@ import { PrepQuestion } from '../../../models/opportunity.models';
         } @empty {
           <div class="bg-white rounded-2xl border border-dashed border-slate-300 py-16 flex flex-col items-center justify-center text-center">
             <div class="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center mb-4">
-              <lucide-icon name="help-circle" [size]="24" class="text-slate-300" />
+              <lucide-icon name="circle-help" [size]="24" class="text-slate-300" />
             </div>
             <h4 class="text-slate-600 font-bold mb-1">No Questions Yet</h4>
             <p class="text-sm text-slate-400 max-w-sm mb-4">
