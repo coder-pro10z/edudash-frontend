@@ -140,10 +140,9 @@ export const routes: Routes = [
       },
       {
         path: 'import',
-        // Stub: swap with real component when ready
         loadComponent: () =>
-          import('./features/admin/admin-dashboard/admin-dashboard.component').then(
-            m => m.AdminDashboardComponent
+          import('./features/admin/admin-import/admin-import.component').then(
+            m => m.AdminImportComponent
           ),
       },
       {
